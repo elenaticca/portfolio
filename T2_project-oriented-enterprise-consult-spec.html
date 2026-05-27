@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Software Requirement Specification · Enterprise & Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f5f7;
+  --surface:#ffffff;
+  --text:#172b4d;
+  --muted:#5e6c84;
+  --border:#dfe1e6;
+  --accent:#0052cc;
+  --accent-light:#deebff;
+  --green:#e3fcef;
+  --green-text:#006644;
+  --red:#ffebe6;
+  --red-text:#bf2600;
+  --amber:#fffae6;
+  --amber-text:#974f0c;
+  --purple:#f3f0ff;
+  --purple-text:#403294;
+  --tag-bg:#ebecf0;
+  --tag-text:#42526e;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;padding:32px;max-width:900px;margin:0 auto}
+a{color:var(--accent);text-decoration:none}
+
+.doc-card{background:var(--surface);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,0.08);padding:32px;margin-bottom:12px}
+.doc-type{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.doc-title{font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-0.02em}
+.doc-subtitle{font-size:0.88rem;color:var(--muted);margin-bottom:20px}
+
+/* META GRIDS */
+.doc-meta{display:flex;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;width:fit-content;margin-bottom:16px}
+.meta-cell{padding:6px 14px;border-right:1px solid var(--border);background:var(--bg)}
+.meta-cell:last-child{border-right:none}
+.meta-label{font-size:0.62rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.meta-val{font-size:0.78rem;font-weight:600;color:var(--text);font-family:'JetBrains Mono',monospace}
+
+/* APPROVAL TABLE */
+.approval-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-bottom:16px}
+.approval-table th{background:var(--bg);text-align:left;padding:7px 12px;font-size:0.65rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);font-weight:600;border:1px solid var(--border)}
+.approval-table td{padding:8px 12px;border:1px solid var(--border);color:var(--muted)}
+.approval-table td:first-child{color:var(--text);font-weight:500;background:var(--bg)}
+
+/* TOC */
+.toc-title{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc-group{margin-bottom:8px}
+.toc-group-label{font-size:0.78rem;font-weight:600;color:var(--text);margin-bottom:4px}
+.toc-items{list-style:none;padding-left:14px}
+.toc-items li{font-size:0.82rem;padding:1px 0}
+
+/* SECTION */
+.section{background:var(--surface);border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,0.08);padding:24px 32px;margin-bottom:12px}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--accent)}
+.section-num{font-size:0.68rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--accent)}
+.section-title{font-size:0.95rem;font-weight:700;color:var(--text)}
+.subsection-title{font-size:0.75rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+
+p{color:var(--muted);font-size:0.84rem;line-height:1.75;margin-bottom:8px}
+
+/* TABLES */
+table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-bottom:12px}
+th{background:var(--bg);text-align:left;padding:7px 12px;font-size:0.65rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);font-weight:600;border:1px solid var(--border)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--muted);vertical-align:top}
+td.key{color:var(--text);font-weight:500;background:var(--bg);font-size:0.78rem;white-space:nowrap}
+
+/* BADGES */
+.badge{display:inline-block;font-size:0.65rem;padding:2px 7px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-weight:600;margin-right:3px}
+.badge-must{background:#ffebe6;color:#bf2600}
+.badge-should{background:#fffae6;color:#974f0c}
+.badge-may{background:#f3f0ff;color:#403294}
+.badge-stable{background:#e3fcef;color:#006644}
+.badge-volatile{background:#ffebe6;color:#bf2600}
+.badge-identified{background:#deebff;color:#0052cc}
+.badge-confirmed{background:#e3fcef;color:#006644}
+.badge-implemented{background:#f3f0ff;color:#403294}
+.badge-tested{background:#fffae6;color:#974f0c}
+.badge-approved{background:#ebecf0;color:#42526e}
+.badge-undefined{background:#ebecf0;color:#42526e}
+.badge-revisioned{background:#fffae6;color:#974f0c}
+.badge-canceled{background:#ffebe6;color:#bf2600}
+
+/* GROUP HEADER */
+.group-header{font-size:1rem;font-weight:700;color:var(--text);padding:20px 0 6px 0;margin-bottom:0}
+
+/* REQ CARD */
+.req-card{border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.req-header{display:grid;grid-template-columns:180px 1fr;background:var(--accent);overflow:hidden}
+.req-id-cell{padding:10px 14px;border-right:1px solid rgba(255,255,255,0.2)}
+.req-id{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;color:#fff}
+.req-name-cell{padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.req-name{font-size:0.9rem;font-weight:600;color:#fff}
+.req-table{width:100%;border-collapse:collapse}
+.req-table td{padding:8px 14px;border-bottom:1px solid var(--border);font-size:0.82rem;vertical-align:top}
+.req-table td:first-child{font-size:0.65rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--bg);width:130px;border-right:1px solid var(--border);white-space:nowrap}
+.req-table tr:last-child td{border-bottom:none}
+.req-table .description{color:var(--text)}
+.helper{font-size:0.75rem;color:var(--muted);font-style:italic;display:block;margin-bottom:4px}
+.constraints-list{list-style:none;padding:0;counter-reset:c1}
+.constraints-list>li{counter-increment:c1;padding:3px 0 3px 22px;position:relative;color:var(--muted)}
+.constraints-list>li::before{content:counter(c1)'.';position:absolute;left:0;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);font-weight:700}
+.constraints-list ol{list-style:lower-alpha;padding-left:20px;margin-top:4px;counter-reset:none}
+.constraints-list ol ol{list-style:lower-roman}
+
+/* CHILD REQ */
+.req-child{border:1px solid var(--border);border-radius:3px;overflow:hidden;margin:8px 0 8px 24px}
+.req-child .req-header{background:var(--accent-light)}
+.req-child .req-id{color:var(--accent)}
+.req-child .req-name{color:var(--accent)}
+
+/* TRACEABILITY */
+.trace-table td{font-family:'JetBrains Mono',monospace;font-size:0.75rem}
+.trace-table td:first-child{color:var(--accent)}
+
+@media print{
+  body{background:#fff;padding:20px;font-size:11px}
+  .doc-card,.section{box-shadow:none;border:1px solid var(--border)}
+  .req-card,.req-child{break-inside:avoid;page-break-inside:avoid}
+  .group-header{break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- DOCUMENT HEADER -->
+<div class="doc-card">
+  <div class="doc-type">Software Requirement Specification · Enterprise &amp; Consulting</div>
+  <div class="doc-title">[Project Name] - Software Requirement Specification</div>
+  <div class="doc-subtitle">[System / Product] · [Client / Organisation]</div>
+
+  <div class="doc-meta">
+    <div class="meta-cell"><div class="meta-label">Document Code</div><div class="meta-val">[PRG]_SRS_v[X.X]</div></div>
+    <div class="meta-cell"><div class="meta-label">Version</div><div class="meta-val">1.0</div></div>
+    <div class="meta-cell"><div class="meta-label">Status</div><div class="meta-val">Draft</div></div>
+    <div class="meta-cell"><div class="meta-label">Date</div><div class="meta-val">YYYY-MM-DD</div></div>
+    <div class="meta-cell"><div class="meta-label">Project Code</div><div class="meta-val">[PRG]</div></div>
+  </div>
+
+  <!-- REVISION HISTORY -->
+  <div class="subsection-title">Revision History</div>
+  <table>
+    <thead><tr><th>Rev.</th><th>Date</th><th>Section</th><th>Description</th><th>Author</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td>YYYY-MM-DD</td><td>All</td><td>First issue</td><td>[Author]</td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <!-- APPROVAL -->
+  <div class="subsection-title">Approval & Issue</div>
+  <table class="approval-table">
+    <thead><tr><th>Role</th><th>Name</th><th>Date</th><th>Signature</th></tr></thead>
+    <tbody>
+      <tr><td>Prepared by</td><td>[Name]</td><td></td><td></td></tr>
+      <tr><td>Reviewed by</td><td>[Name]</td><td></td><td></td></tr>
+      <tr><td>Approved by</td><td>[Name]</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <!-- TOC -->
+  <div class="toc-title" style="margin-top:16px">Contents</div>
+  <div class="toc-group">
+    <ul class="toc-items">
+      <li>1. Scope and Context</li>
+      <li>2. Reference Documents</li>
+      <li>3. Abbreviations and Definitions</li>
+      <li>4. Requirements Landscape</li>
+      <li>5. Requirement Status Lifecycle</li>
+      <li>6. Functional Requirements [FUN]</li>
+      <li>7. Non-Functional Requirements</li>
+      <li style="padding-left:12px">7.1 Usability [UEX]</li>
+      <li style="padding-left:12px">7.2 Performance [PRF]</li>
+      <li style="padding-left:12px">7.3 Security [SEC]</li>
+      <li style="padding-left:12px">7.4 Software Quality [QSW]</li>
+      <li>8. Traceability Matrix</li>
+      <li>9. Open Issues / TBD</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 1. SCOPE -->
+<div class="section">
+  <div class="section-header"><span class="section-num">1</span><span class="section-title">Scope and Context</span></div>
+  <div class="subsection-title">1.1 Document Scope</div>
+  <p><span class="helper">Describe the purpose of this document, what it covers, and what it does not cover. Reference the project or contract that originated this specification.</span></p>
+  <div class="subsection-title">1.2 System Description</div>
+  <p><span class="helper">Provide a brief description of the system or product being specified. Include the organisational context, the main users, and the operational environment.</span></p>
+  <div class="subsection-title">1.3 Scope Boundaries</div>
+  <table>
+    <thead><tr><th>In Scope</th><th>Out of Scope</th></tr></thead>
+    <tbody>
+      <tr><td>[Feature / module / interface]</td><td>[Excluded element and reason]</td></tr>
+      <tr><td></td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 2. REFERENCE DOCUMENTS -->
+<div class="section">
+  <div class="section-header"><span class="section-num">2</span><span class="section-title">Reference Documents</span></div>
+  <div class="subsection-title">2.1 Contractual Documents</div>
+  <table>
+    <thead><tr><th>Ref.</th><th>Code</th><th>Edition</th><th>Title</th><th>Date</th></tr></thead>
+    <tbody>
+      <tr><td>[1]</td><td></td><td></td><td>[Contract / tender / specification]</td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="subsection-title">2.2 Other Documentation</div>
+  <table>
+    <thead><tr><th>Ref.</th><th>Code</th><th>Edition</th><th>Title</th><th>Date</th></tr></thead>
+    <tbody>
+      <tr><td>[2]</td><td></td><td></td><td>[Meeting minutes / analysis / standard]</td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 3. ABBREVIATIONS -->
+<div class="section">
+  <div class="section-header"><span class="section-num">3</span><span class="section-title">Abbreviations and Definitions</span></div>
+  <div class="subsection-title">3.1 Abbreviations</div>
+  <table>
+    <thead><tr><th>Term</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td class="key">FUN</td><td>Functional requirements</td></tr>
+      <tr><td class="key">UEX</td><td>Usability requirements</td></tr>
+      <tr><td class="key">PRF</td><td>Performance requirements</td></tr>
+      <tr><td class="key">SEC</td><td>Security requirements</td></tr>
+      <tr><td class="key">QSW</td><td>Software quality requirements</td></tr>
+      <tr><td class="key">BR</td><td>Business Rule</td></tr>
+      <tr><td class="key">UC</td><td>Use Case</td></tr>
+      <tr><td class="key">TBD</td><td>To Be Defined</td></tr>
+      <tr><td class="key">[TERM]</td><td>[Definition]</td></tr>
+    </tbody>
+  </table>
+  <div class="subsection-title">3.2 Domain Definitions</div>
+  <table>
+    <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+    <tbody>
+      <tr><td class="key">[Term]</td><td>[Domain-specific definition relevant to this project]</td></tr>
+      <tr><td class="key"></td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 4. REQUIREMENTS LANDSCAPE -->
+<div class="section">
+  <div class="section-header"><span class="section-num">4</span><span class="section-title">Requirements Landscape</span></div>
+  <p>The following table defines the requirement types used in this project, their coding convention, and the form of presentation adopted for each type.</p>
+  <table>
+    <thead><tr><th>Type</th><th>Code</th><th>Coding Example</th><th>Form of Presentation</th></tr></thead>
+    <tbody>
+      <tr><td>Functional</td><td class="key">FUN</td><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_FUN.001</td><td>Structured table (ID, Title, Status, Priority, Stability, Source, Description, Constraints, Comments)</td></tr>
+      <tr><td>Functional - child</td><td class="key">FUN</td><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_FUN.001.001</td><td>Same structure, nested under parent requirement</td></tr>
+      <tr><td>Usability</td><td class="key">UEX</td><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_UEX.001</td><td>Structured table</td></tr>
+      <tr><td>Performance</td><td class="key">PRF</td><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_PRF.001</td><td>Structured table with measurable fit criterion</td></tr>
+      <tr><td>Security</td><td class="key">SEC</td><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_SEC.001</td><td>Structured table</td></tr>
+      <tr><td>Software Quality</td><td class="key">QSW</td><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_QSW.001</td><td>Structured table</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 5. STATUS LIFECYCLE -->
+<div class="section">
+  <div class="section-header"><span class="section-num">5</span><span class="section-title">Requirement Status Lifecycle</span></div>
+  <p>The status of each requirement evolves throughout the project lifecycle according to the following states:</p>
+  <table>
+    <thead><tr><th>Status</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-undefined">UNDEFINED</span></td><td>Requirement is tracked but not yet defined - awaiting stakeholder input or clarification</td></tr>
+      <tr><td><span class="badge badge-identified">IDENTIFIED</span></td><td>Initial state - requirement has been elicited and documented</td></tr>
+      <tr><td><span class="badge badge-confirmed">CONFIRMED</span></td><td>Requirement has been reviewed and agreed upon by all relevant parties</td></tr>
+      <tr><td><span class="badge badge-revisioned">REVISIONED</span></td><td>Requirement has been superseded by a change request or merged into another requirement</td></tr>
+      <tr><td><span class="badge badge-canceled">CANCELED</span></td><td>Requirement has been removed - typically due to a change in scope or specifications</td></tr>
+      <tr><td><span class="badge badge-implemented">IMPLEMENTED</span></td><td>Requirement has been implemented in the system - may include a completion percentage</td></tr>
+      <tr><td><span class="badge badge-tested">TESTED</span></td><td>Requirement has been verified against the implemented system</td></tr>
+      <tr><td><span class="badge badge-approved">APPROVED</span></td><td>Requirement has been formally approved - release version indicated where applicable</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 6. FUNCTIONAL REQUIREMENTS -->
+<div class="section">
+  <div class="section-header"><span class="section-num">6</span><span class="section-title">Functional Requirements [FUN]</span></div>
+  <p>Functional requirements describe what the system shall do. Each requirement is identified by a unique code following the convention <span style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_FUN.XXX</span>. Child requirements refine a parent using <span style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">[PRG]_FUN.XXX.XXX</span>.</p>
+
+  <!-- REQ PARENT -->
+  <div class="req-card">
+    <div class="req-header">
+      <div class="req-id-cell"><div class="req-id">[PRG]_FUN.001</div></div>
+      <div class="req-name-cell">
+        <span class="req-name">[Requirement title]</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.62rem">Rev. 1</span>
+        <span class="badge badge-identified" style="background:rgba(255,255,255,0.15);color:#fff">IDENTIFIED</span>
+      </div>
+    </div>
+    <table class="req-table">
+      <tr><td>Priority</td><td><span class="badge badge-must">MUST</span></td></tr>
+      <tr><td>Stability</td><td><span class="badge badge-stable">Stable</span></td></tr>
+      <tr><td>Source</td><td><span class="helper">Stakeholder, document, or meeting that originated this requirement.</span></td></tr>
+      <tr><td>Description</td><td class="description"><span class="helper">Describe what the system shall do. Use normative language: the system SHALL / MUST / SHOULD perform [action] when [condition].</span></td></tr>
+      <tr><td>Constraints</td><td>
+        <span class="helper">Detailed rules, business rules, UI behaviours, validations, and edge cases the system must respect to satisfy this requirement.</span>
+        <ol class="constraints-list">
+          <li>[Constraint 1]
+            <ol><li>[Sub-constraint a]</li><li>[Sub-constraint b]<ol><li>[Detail i]</li></ol></li></ol>
+          </li>
+          <li>[Constraint 2]</li>
+        </ol>
+      </td></tr>
+      <tr><td>Comments</td><td><span class="helper">Open notes, decisions pending, or references to related requirements or documents.</span></td></tr>
+    </table>
+  </div>
+
+  <!-- CHILD REQ -->
+  <div class="req-child">
+    <div class="req-header">
+      <div class="req-id-cell"><div class="req-id">[PRG]_FUN.001.001</div></div>
+      <div class="req-name-cell">
+        <span class="req-name">[Child requirement title]</span>
+        <span class="badge" style="background:rgba(0,82,204,0.15);color:var(--accent);font-size:0.62rem">Rev. 1</span>
+        <span class="badge badge-identified">IDENTIFIED</span>
+      </div>
+    </div>
+    <table class="req-table">
+      <tr><td>Priority</td><td><span class="badge badge-must">MUST</span></td></tr>
+      <tr><td>Stability</td><td><span class="badge badge-stable">Stable</span></td></tr>
+      <tr><td>Source</td><td><span class="helper">Source of this child requirement - may differ from parent.</span></td></tr>
+      <tr><td>Description</td><td class="description"><span class="helper">Refines or expands the parent requirement. Describe the specific sub-behaviour or sub-function.</span></td></tr>
+      <tr><td>Constraints</td><td>
+        <span class="helper">Rules and conditions specific to this child requirement.</span>
+        <ol class="constraints-list">
+          <li>[Constraint 1]</li>
+          <li>[Constraint 2]</li>
+        </ol>
+      </td></tr>
+      <tr><td>Comments</td><td><span class="helper">Open notes or references.</span></td></tr>
+    </table>
+  </div>
+
+  <!-- SECOND REQ -->
+  <div class="req-card">
+    <div class="req-header">
+      <div class="req-id-cell"><div class="req-id">[PRG]_FUN.002</div></div>
+      <div class="req-name-cell">
+        <span class="req-name">[Requirement title]</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.62rem">Rev. 1</span>
+        <span class="badge badge-identified" style="background:rgba(255,255,255,0.15);color:#fff">IDENTIFIED</span>
+      </div>
+    </div>
+    <table class="req-table">
+      <tr><td>Priority</td><td><span class="badge badge-should">SHOULD</span></td></tr>
+      <tr><td>Stability</td><td><span class="badge badge-volatile">Volatile</span></td></tr>
+      <tr><td>Source</td><td><span class="helper">Stakeholder, document, or meeting that originated this requirement.</span></td></tr>
+      <tr><td>Description</td><td class="description"><span class="helper">Describe what the system shall do.</span></td></tr>
+      <tr><td>Constraints</td><td>
+        <span class="helper">Detailed rules, business rules, UI behaviours, validations, and edge cases.</span>
+        <ol class="constraints-list">
+          <li>[Constraint 1]</li>
+          <li>[Constraint 2]</li>
+        </ol>
+      </td></tr>
+      <tr><td>Comments</td><td><span class="helper">Open notes or references.</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 7. NON-FUNCTIONAL REQUIREMENTS -->
+<div class="section">
+  <div class="section-header"><span class="section-num">7</span><span class="section-title">Non-Functional Requirements</span></div>
+
+  <!-- 7.1 USABILITY -->
+  <div class="group-header">7.1 Usability [UEX]</div>
+  <p style="margin-bottom:12px">Requirements governing the quality of the user experience, interface consistency, accessibility, and learnability of the system.</p>
+  <div class="req-card">
+    <div class="req-header">
+      <div class="req-id-cell"><div class="req-id">[PRG]_UEX.001</div></div>
+      <div class="req-name-cell">
+        <span class="req-name">[Usability requirement title]</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.62rem">Rev. 1</span>
+        <span class="badge badge-identified" style="background:rgba(255,255,255,0.15);color:#fff">IDENTIFIED</span>
+      </div>
+    </div>
+    <table class="req-table">
+      <tr><td>Priority</td><td><span class="badge badge-must">MUST</span></td></tr>
+      <tr><td>Stability</td><td><span class="badge badge-stable">Stable</span></td></tr>
+      <tr><td>Source</td><td><span class="helper">Stakeholder, standard, or document that originated this requirement.</span></td></tr>
+      <tr><td>Description</td><td class="description"><span class="helper">Describe the usability requirement - e.g. accessibility standard, response time perception, UI consistency rule.</span></td></tr>
+      <tr><td>Fit Criterion</td><td><span class="helper">Measurable or verifiable condition that confirms the requirement is satisfied - e.g. "The system must comply with WCAG 2.1 AA."</span></td></tr>
+      <tr><td>Comments</td><td><span class="helper">Open notes or references.</span></td></tr>
+    </table>
+  </div>
+
+  <!-- 7.2 PERFORMANCE -->
+  <div class="group-header" style="margin-top:16px">7.2 Performance [PRF]</div>
+  <p style="margin-bottom:12px">Requirements defining measurable performance thresholds such as response times, throughput, and capacity under load.</p>
+  <div class="req-card">
+    <div class="req-header">
+      <div class="req-id-cell"><div class="req-id">[PRG]_PRF.001</div></div>
+      <div class="req-name-cell">
+        <span class="req-name">[Performance requirement title]</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.62rem">Rev. 1</span>
+        <span class="badge badge-identified" style="background:rgba(255,255,255,0.15);color:#fff">IDENTIFIED</span>
+      </div>
+    </div>
+    <table class="req-table">
+      <tr><td>Priority</td><td><span class="badge badge-must">MUST</span></td></tr>
+      <tr><td>Stability</td><td><span class="badge badge-stable">Stable</span></td></tr>
+      <tr><td>Source</td><td><span class="helper">Stakeholder, standard, or document that originated this requirement.</span></td></tr>
+      <tr><td>Description</td><td class="description"><span class="helper">Describe the performance requirement - e.g. maximum response time, concurrent user capacity, throughput threshold.</span></td></tr>
+      <tr><td>Fit Criterion</td><td><span class="helper">Measurable threshold - e.g. "p95 response time &lt; 2s under a load of 500 concurrent users."</span></td></tr>
+      <tr><td>Comments</td><td><span class="helper">Open notes or references.</span></td></tr>
+    </table>
+  </div>
+
+  <!-- 7.3 SECURITY -->
+  <div class="group-header" style="margin-top:16px">7.3 Security [SEC]</div>
+  <p style="margin-bottom:12px">Requirements governing access control, data protection, authentication, authorisation, and audit trail.</p>
+  <div class="req-card">
+    <div class="req-header">
+      <div class="req-id-cell"><div class="req-id">[PRG]_SEC.001</div></div>
+      <div class="req-name-cell">
+        <span class="req-name">[Security requirement title]</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.62rem">Rev. 1</span>
+        <span class="badge badge-identified" style="background:rgba(255,255,255,0.15);color:#fff">IDENTIFIED</span>
+      </div>
+    </div>
+    <table class="req-table">
+      <tr><td>Priority</td><td><span class="badge badge-must">MUST</span></td></tr>
+      <tr><td>Stability</td><td><span class="badge badge-stable">Stable</span></td></tr>
+      <tr><td>Source</td><td><span class="helper">Stakeholder, regulation, or standard that originated this requirement.</span></td></tr>
+      <tr><td>Description</td><td class="description"><span class="helper">Describe the security requirement - e.g. authentication mechanism, data encryption, role-based access control, audit trail.</span></td></tr>
+      <tr><td>Fit Criterion</td><td><span class="helper">Verifiable condition - e.g. "All API calls without valid token must return HTTP 401."</span></td></tr>
+      <tr><td>Comments</td><td><span class="helper">Open notes, regulatory references, or related requirements.</span></td></tr>
+    </table>
+  </div>
+
+  <!-- 7.4 SOFTWARE QUALITY -->
+  <div class="group-header" style="margin-top:16px">7.4 Software Quality [QSW]</div>
+  <p style="margin-bottom:12px">Requirements governing maintainability, reliability, portability, scalability, and other software quality attributes.</p>
+  <div class="req-card">
+    <div class="req-header">
+      <div class="req-id-cell"><div class="req-id">[PRG]_QSW.001</div></div>
+      <div class="req-name-cell">
+        <span class="req-name">[Software quality requirement title]</span>
+        <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.62rem">Rev. 1</span>
+        <span class="badge badge-identified" style="background:rgba(255,255,255,0.15);color:#fff">IDENTIFIED</span>
+      </div>
+    </div>
+    <table class="req-table">
+      <tr><td>Priority</td><td><span class="badge badge-should">SHOULD</span></td></tr>
+      <tr><td>Stability</td><td><span class="badge badge-stable">Stable</span></td></tr>
+      <tr><td>Source</td><td><span class="helper">Stakeholder, architecture decision, or standard that originated this requirement.</span></td></tr>
+      <tr><td>Description</td><td class="description"><span class="helper">Describe the quality attribute - e.g. maintainability target, test coverage threshold, scalability expectation.</span></td></tr>
+      <tr><td>Fit Criterion</td><td><span class="helper">Verifiable condition - e.g. "Code test coverage must be ≥ 80% at unit level."</span></td></tr>
+      <tr><td>Comments</td><td><span class="helper">Open notes or references.</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 8. TRACEABILITY MATRIX -->
+<div class="section">
+  <div class="section-header"><span class="section-num">8</span><span class="section-title">Traceability Matrix</span></div>
+  <p style="margin-bottom:12px">Maps each requirement to its upstream source (business goal, stakeholder, document) and downstream artefacts (design component, test case). Enables impact analysis and coverage verification.</p>
+  <div class="trace-table">
+    <table>
+      <thead><tr><th>Requirement ID</th><th>Title</th><th>Source (Upstream)</th><th>Design Component</th><th>Test Case</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>[PRG]_FUN.001</td><td>[Title]</td><td>[Ref. doc / stakeholder]</td><td>[Component]</td><td>[TC-001]</td><td><span class="badge badge-identified">IDENTIFIED</span></td></tr>
+        <tr><td>[PRG]_FUN.001.001</td><td>[Title]</td><td>[Ref.]</td><td>[Component]</td><td>[TC-002]</td><td><span class="badge badge-identified">IDENTIFIED</span></td></tr>
+        <tr><td>[PRG]_FUN.002</td><td>[Title]</td><td>[Ref.]</td><td>[Component]</td><td>[TC-003]</td><td><span class="badge badge-identified">IDENTIFIED</span></td></tr>
+        <tr><td>[PRG]_UEX.001</td><td>[Title]</td><td>[Ref.]</td><td>[Component]</td><td>[TC-004]</td><td><span class="badge badge-identified">IDENTIFIED</span></td></tr>
+        <tr><td>[PRG]_PRF.001</td><td>[Title]</td><td>[Ref.]</td><td>[Component]</td><td>[TC-005]</td><td><span class="badge badge-identified">IDENTIFIED</span></td></tr>
+        <tr><td>[PRG]_SEC.001</td><td>[Title]</td><td>[Ref.]</td><td>[Component]</td><td>[TC-006]</td><td><span class="badge badge-identified">IDENTIFIED</span></td></tr>
+        <tr><td>[PRG]_QSW.001</td><td>[Title]</td><td>[Ref.]</td><td>[Component]</td><td>[TC-007]</td><td><span class="badge badge-identified">IDENTIFIED</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 9. OPEN ISSUES -->
+<div class="section">
+  <div class="section-header"><span class="section-num">9</span><span class="section-title">Open Issues / TBD</span></div>
+  <p style="margin-bottom:12px">Requirements or aspects not yet defined, pending stakeholder decision, or flagged for follow-up.</p>
+  <table>
+    <thead><tr><th>ID</th><th>Description</th><th>Owner</th><th>Target Date</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">OI-001</td><td>[Open issue or undefined aspect]</td><td>[Owner]</td><td>YYYY-MM-DD</td><td><span class="badge" style="background:#fffae6;color:#974f0c">OPEN</span></td></tr>
+      <tr><td style="font-family:'JetBrains Mono',monospace;font-size:0.75rem">OI-002</td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
