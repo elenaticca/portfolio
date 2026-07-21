@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Formal Requirements Specification — Blank Template | Elena Ticca</title>
+<meta name="description" content="A blank reusable software requirement specification template for enterprise and consulting contexts."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f7f5f2;
+  --surface:#ffffff;
+  --surface2:#f0ece6;
+  --text:#1c2333;
+  --muted:#4a5568;
+  --subtle:#616a7d;
+  --accent:#2d4270;
+  --accent-dim:#4a628f;
+  --border:rgba(28,35,51,0.10);
+  --border2:rgba(28,35,51,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+  line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+
+/* Header + breadcrumb */
+.top-nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,245,242,0.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.back-link{
+  font-size:0.84rem;color:var(--accent-dim);display:inline-flex;align-items:center;gap:7px;
+  transition:color 180ms;
+}
+.back-link:hover{color:var(--accent)}
+.back-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.breadcrumb{font-size:0.78rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.breadcrumb a{color:var(--accent-dim);transition:color 180ms}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.breadcrumb span[aria-current]{color:var(--muted)}
+
+.wrap{max-width:900px;margin:0 auto;padding:56px 48px 80px}
+
+/* Page head */
+.doc-ref{
+  display:inline-block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent-dim);border:1px solid var(--border2);border-radius:3px;
+  padding:4px 10px;margin-bottom:16px;
+}
+h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.9rem,3.4vw,2.7rem);
+  line-height:1.08;font-weight:400;
+  letter-spacing:-0.01em;margin-bottom:12px;color:var(--text);
+}
+.doc-class{font-size:0.93rem;color:var(--muted);line-height:1.85;margin-bottom:8px}
+.section-line{width:56px;height:1px;background:linear-gradient(90deg,var(--accent-dim),transparent);margin:20px 0 32px}
+
+/* Transparency notice - high contrast, clearly visible */
+.notice{
+  background:#eef2fa;border:1px solid var(--border2);
+  border-left:3px solid var(--accent);border-radius:5px;
+  padding:18px 22px;margin:26px 0 40px;
+  font-size:0.87rem;color:var(--text);line-height:1.75;
+}
+.notice strong{color:var(--text);font-weight:600}
+
+/* Sections */
+section{margin-bottom:44px}
+h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.35rem,2.2vw,1.75rem);
+  font-weight:400;letter-spacing:-0.01em;
+  color:var(--text);margin-bottom:6px;line-height:1.15;
+  padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.sec-num{font-family:'DM Sans',sans-serif;font-size:0.72rem;color:var(--accent-dim);letter-spacing:0.1em;margin-right:10px}
+h3{font-size:0.97rem;font-weight:600;color:var(--text);margin:26px 0 10px;font-family:'DM Sans',sans-serif}
+p{color:var(--muted);margin-bottom:14px;font-size:0.9rem}
+ul,ol{margin:0 0 16px 0;padding-left:0;list-style:none}
+li{color:var(--muted);font-size:0.88rem;padding:4px 0 4px 16px;position:relative;line-height:1.7}
+li::before{content:'·';position:absolute;left:0;color:var(--accent-dim);font-size:1.1rem;line-height:1.5}
+ol{counter-reset:n}
+ol li{padding-left:26px}
+ol li::before{content:counter(n);counter-increment:n;font-size:0.76rem;color:var(--accent-dim);font-feature-settings:'tnum';top:5px}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:0.85rem}
+th{
+  text-align:left;font-weight:500;font-size:0.7rem;letter-spacing:0.07em;text-transform:uppercase;
+  color:var(--accent-dim);padding:11px 14px;border-bottom:1px solid var(--border2);
+  background:var(--surface2);
+}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.id-cell{color:var(--accent-dim);font-size:0.8rem;white-space:nowrap;font-feature-settings:'tnum'}
+
+/* Requirement blocks */
+.req{background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:16px;overflow:hidden}
+.req-head{
+  background:var(--surface2);padding:13px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.req-id{font-size:0.72rem;color:var(--accent-dim);letter-spacing:0.06em;font-feature-settings:'tnum'}
+.req-title{font-size:0.94rem;color:var(--text);font-weight:600}
+.req-body{padding:6px 20px 16px}
+.req-row{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
+.req-row:last-child{border-bottom:none}
+.req-label{font-size:0.7rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent-dim);padding-top:2px}
+.req-val{font-size:0.87rem;color:var(--muted);line-height:1.7}
+
+/* Callouts */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px}
+.box h4{font-size:0.88rem;color:var(--text);margin-bottom:10px;font-weight:600}
+.box.excl{border-color:var(--border2)}
+
+/* Flow steps */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.flow-step{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px}
+.flow-num{font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px}
+.flow-step h4{font-size:0.9rem;color:var(--text);margin-bottom:6px;font-weight:600}
+.flow-step p{font-size:0.8rem;margin:0}
+
+/* Placeholder styling for blank templates */
+.ph{color:var(--accent-dim);font-style:italic}
+.guide{color:var(--muted);opacity:0.85;font-size:0.83rem;font-style:italic}
+.tmpl-badge{
+  display:inline-block;background:var(--surface2);border:1px solid var(--border2);
+  border-radius:3px;padding:4px 11px;font-size:0.72rem;color:var(--muted);
+  letter-spacing:0.05em;margin-bottom:16px;
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;font-size:0.83rem;
+  border-radius:4px;padding:11px 20px;transition:background 180ms,border-color 180ms,color 180ms;
+}
+.btn-primary{background:var(--accent);color:#ffffff;border:1px solid var(--accent);font-weight:500}
+.btn-primary:hover{background:var(--accent-dim);border-color:var(--accent-dim);color:#ffffff}
+.btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-secondary:hover{color:var(--text);border-color:var(--accent-dim)}
+.btn-secondary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+
+/* Related artefacts nav */
+.related{border-top:1px solid var(--border);margin-top:52px;padding-top:32px}
+.related h3{font-size:0.98rem;margin:0 0 16px}
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rel-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:18px 20px;
+  transition:border-color 180ms,background 180ms;display:block;
+}
+.rel-card:hover{border-color:var(--border2);background:var(--surface2)}
+.rel-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rel-eyebrow{font-size:0.66rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:7px}
+.rel-card h4{font-size:0.88rem;color:var(--text);font-weight:600;margin-bottom:4px}
+.rel-card p{font-size:0.79rem;color:var(--muted);margin:0}
+
+footer{
+  border-top:1px solid var(--border);padding:24px 40px;
+  font-size:0.79rem;color:var(--muted);text-align:center;
+}
+
+@media(max-width:820px){
+  .top-nav{padding:14px 22px}
+  .wrap{padding:40px 22px 60px}
+  h1{font-size:1.6rem}
+  .split,.rel-grid,.flow{grid-template-columns:1fr}
+  .req-row{grid-template-columns:1fr;gap:4px}
+  table{font-size:0.8rem}
+  th,td{padding:9px 10px}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+  <div class="breadcrumb">
+    <a href="../index.html">Portfolio</a>
+    <span>/</span>
+    <span aria-current="page">Formal Requirements Template</span>
+  </div>
+</nav>
+
+<main class="wrap">
+  <span class="tmpl-badge">Blank reusable template</span>
+  <h1>Formal Requirements Specification</h1>
+  <p class="doc-class">An empty, reusable structure for enterprise and client-facing projects</p>
+  <div class="section-line"></div>
+
+  <div class="notice">
+    <strong>This is a blank reusable template.</strong> It contains no project content. Fields shown in <span class="ph">[brackets]</span> are placeholders; italic text is guidance explaining what belongs in each field. Sections marked optional can be removed when not relevant.
+  </div>
+
+  <div class="btn-row">
+    <a class="btn btn-primary" href="../downloads/formal-requirements-specification-template.docx" download>Download DOCX</a>
+  </div>
+
+  <section>
+    <h2>Cover page</h2>
+    <table>
+      <thead><tr><th>Document title</th><th>Document code</th><th>Version</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="ph">[Title]</td><td class="ph">[DOC-XXX]</td><td class="ph">0.1</td><td class="ph">Draft</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <thead><tr><th>Prepared by</th><th>Reviewed by</th><th>Approved by</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td class="ph">[Name, role]</td><td class="ph">[Name, role]</td><td class="ph">[Name, role]</td><td class="ph">YYYY-MM-DD</td></tr>
+      </tbody>
+    </table>
+    <h3>Revision history</h3>
+    <table>
+      <thead><tr><th>Version</th><th>Date</th><th>Author</th><th>Description of changes</th></tr></thead>
+      <tbody>
+        <tr><td>0.1</td><td class="ph">YYYY-MM-DD</td><td class="ph">[Name]</td><td>Initial draft</td></tr>
+        <tr><td>0.2</td><td class="ph">YYYY-MM-DD</td><td class="ph">[Name]</td><td class="ph">[Description]</td></tr>
+        <tr><td>1.0</td><td class="ph">YYYY-MM-DD</td><td class="ph">[Name]</td><td>Approved for release</td></tr>
+      </tbody>
+    </table>
+    <h3>Approval and issue</h3>
+    <p class="guide">The document is considered approved when all reviewers have signed off. Approvers are listed with name, role, organisation, and signature date.</p>
+  </section>
+
+  <section>
+    <h2>Contents</h2>
+    <ol>
+      <li>Purpose and business context</li>
+      <li>Scope and system context</li>
+      <li>Stakeholders</li>
+      <li>References, abbreviations and glossary</li>
+      <li>Assumptions and constraints</li>
+      <li>Requirements conventions and lifecycle</li>
+      <li>Business rules</li>
+      <li>Functional requirements</li>
+      <li>Non-functional requirements</li>
+      <li>Use cases and scenarios</li>
+      <li>Data and interface requirements <span class="guide">(optional)</span></li>
+      <li>Models and diagrams <span class="guide">(optional)</span></li>
+      <li>Traceability matrix</li>
+      <li>Acceptance and fit criteria</li>
+      <li>Risks, dependencies and open issues</li>
+      <li>Approval and change control</li>
+    </ol>
+    <p class="guide">In the DOCX, the contents list covers both section and subsection level, indented by hierarchy, with hyperlinked entries and page numbers right-aligned with dot leaders. The glossary sits in §4, before the requirements.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§1</span>Purpose and business context</h2>
+    <h3>1.1 Document purpose</h3>
+    <p class="ph">[State the purpose of this document, its intended audience, and the decisions it should support.]</p>
+    <h3>1.2 Business need</h3>
+    <p class="ph">[What is currently not working, missing, or required? Who is affected and what is the cost of inaction?]</p>
+    <h3>1.3 Business objectives</h3>
+    <ul>
+      <li class="ph">[Objective — e.g. reduce manual processing time for administrators]</li>
+      <li class="ph">[Objective — e.g. ensure compliance with a regulation or policy]</li>
+      <li class="ph">[Objective — e.g. improve data consistency across systems]</li>
+    </ul>
+    <h3>1.4 Expected value</h3>
+    <p class="ph">[Describe the expected improvements — operational, financial, strategic, or regulatory — that justify this project.]</p>
+    <p class="guide">Avoid invented metrics.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§2</span>Scope and system context</h2>
+    <h3>2.1 System description</h3>
+    <p class="ph">[Describe the system in scope — its purpose, main capabilities, and how it fits within the broader technical or organisational landscape.]</p>
+    <h3>2.2 Scope boundaries</h3>
+    <div class="split">
+      <div class="box">
+        <h4>In scope</h4>
+        <ul>
+          <li class="ph">[System, module, or capability included]</li>
+          <li class="ph">[In-scope item]</li>
+        </ul>
+      </div>
+      <div class="box excl">
+        <h4>Out of scope</h4>
+        <ul>
+          <li class="ph">[Excluded item — with a note on why or where it will be addressed]</li>
+          <li class="ph">[Excluded item]</li>
+        </ul>
+      </div>
+    </div>
+    <h3>2.3 Context diagram</h3>
+    <p class="guide">Diagram placeholder — insert a context diagram showing the system boundary, the actors who interact with it, connected external systems, and the direction of information flow.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§3</span>Stakeholders</h2>
+    <table>
+      <thead><tr><th>Stakeholder</th><th>Role</th><th>Needs and expectations</th><th>Approval authority</th></tr></thead>
+      <tbody>
+        <tr><td class="ph">[Name or group]</td><td class="ph">[Primary user / client / sponsor / SME]</td><td class="ph">[What they need from the system or specification]</td><td class="ph">[Sign-off authority if applicable]</td></tr>
+        <tr><td class="ph">[Name or group]</td><td class="ph">[Role]</td><td class="ph">[Needs]</td><td class="ph">[Authority]</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§4</span>References, abbreviations and glossary</h2>
+    <h3>4.1 Referenced documents</h3>
+    <table>
+      <thead><tr><th>Reference</th><th>Document title</th><th>Version / date</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">[REF-01]</td><td class="ph">[Document name]</td><td class="ph">[Version or date]</td><td class="ph">[Location or link]</td></tr>
+      </tbody>
+    </table>
+    <h3>4.2 Abbreviations · 4.3 Glossary</h3>
+    <p class="guide">Two tables: abbreviations with their full term, and domain-specific terms with definitions accessible to a non-technical stakeholder.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§5</span>Assumptions and constraints</h2>
+    <h3>5.1 Assumptions</h3>
+    <ul>
+      <li class="ph">[Assumption about the existing system, data model, or infrastructure]</li>
+      <li class="ph">[Assumption about user behaviour, context, or technical capability]</li>
+      <li class="ph">[Assumption about external dependencies or integrations]</li>
+      <li class="ph">[Assumption about regulatory or governance context]</li>
+    </ul>
+    <h3>5.2 Constraints</h3>
+    <table>
+      <thead><tr><th>Type</th><th>ID</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Business</td><td class="id-cell">CON-B-01</td><td class="ph">[e.g. existing data must not be modified — legal or contractual obligation]</td></tr>
+        <tr><td>Technical</td><td class="id-cell">CON-T-01</td><td class="ph">[e.g. the existing permission model must be reused without architectural changes]</td></tr>
+        <tr><td>Regulatory</td><td class="id-cell">CON-R-01</td><td class="ph">[e.g. compliance with a regulation must be maintained]</td></tr>
+        <tr><td>Organisational</td><td class="id-cell">CON-O-01</td><td class="ph">[e.g. deliverable within the current programme timeline]</td></tr>
+        <tr><td>UX / Accessibility</td><td class="id-cell">CON-U-01</td><td class="ph">[e.g. the interface must meet an accessibility standard]</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§6</span>Requirements conventions and lifecycle</h2>
+    <p class="guide">Establishes the coding, prioritisation, and lifecycle conventions used throughout the document, ensuring consistency and supporting traceability.</p>
+    <h3>6.1 Requirement types</h3>
+    <table>
+      <thead><tr><th>Type</th><th>Prefix</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Functional requirement</td><td class="id-cell">FR</td><td>A behaviour the system must support</td></tr>
+        <tr><td>Non-functional requirement</td><td class="id-cell">NFR</td><td>A quality attribute or constraint on how the system behaves</td></tr>
+        <tr><td>Business rule</td><td class="id-cell">BR</td><td>A policy, logic, or constraint derived from business context</td></tr>
+        <tr><td>Constraint</td><td class="id-cell">CON</td><td>An external or organisational limitation on the system or delivery</td></tr>
+      </tbody>
+    </table>
+    <h3>6.2 Priority scale</h3>
+    <table>
+      <thead><tr><th>Label</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>HIGH</td><td>Required for the system to meet its core objectives — must be delivered</td></tr>
+        <tr><td>MEDIUM</td><td>Strongly recommended — should be delivered in this iteration unless constrained</td></tr>
+        <tr><td>LOW</td><td>Desirable — can be deferred without blocking core delivery</td></tr>
+      </tbody>
+    </table>
+    <h3>6.3 Normative language</h3>
+    <p class="guide">Requirements use the following normative verbs as defined in RFC 2119.</p>
+    <table>
+      <thead><tr><th>Verb</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>SHALL</td><td>Mandatory — the system must implement this behaviour</td></tr>
+        <tr><td>SHOULD</td><td>Strongly recommended — deviation requires documented justification</td></tr>
+        <tr><td>MAY</td><td>Optional — implementation is permitted but not required</td></tr>
+      </tbody>
+    </table>
+    <h3>6.4 Stability and status lifecycle</h3>
+    <table>
+      <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Draft</td><td>Under preparation — not yet reviewed or baselined</td></tr>
+        <tr><td>Under review</td><td>Circulated for stakeholder review</td></tr>
+        <tr><td>Approved</td><td>Agreed and baselined — changes require formal change control</td></tr>
+        <tr><td>Deferred</td><td>Excluded from current scope — candidate for a future iteration</td></tr>
+        <tr><td>Rejected</td><td>Formally excluded with documented rationale</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§7</span>Business rules</h2>
+    <p class="guide">Policy constraints and logic the system must enforce, independent of implementation. Each rule must be traceable to a requirement.</p>
+    <table>
+      <thead><tr><th>ID</th><th>Rule</th><th>Rationale</th><th>Source</th><th>Related req.</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">BR-001</td><td class="ph">[State the rule clearly — avoid implementation language]</td><td class="ph">[Policy, legal, operational]</td><td class="ph">[Stakeholder, regulation, document]</td><td class="id-cell ph">[FR-XXX]</td></tr>
+        <tr><td class="id-cell">BR-002</td><td class="ph">[Rule statement]</td><td class="ph">[Rationale]</td><td class="ph">[Source]</td><td class="id-cell ph">[FR-XXX]</td></tr>
+        <tr><td class="id-cell">BR-003</td><td class="ph">[Rule statement]</td><td class="ph">[Rationale]</td><td class="ph">[Source]</td><td class="id-cell ph">[FR-XXX]</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§8</span>Functional requirements</h2>
+    <p class="guide">Maturity labels: Solid = stable and agreed · Draft = agreed in principle, details in flux · TBD = open item blocking finalisation. The template provides three cards; duplicate and renumber as needed.</p>
+
+    <div class="req">
+      <div class="req-head"><span class="req-id">FR-001</span><span class="req-title ph">[Requirement title]</span><span class="tmpl-badge" style="margin:0;font-size:0.66rem;padding:2px 8px">Solid</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Statement</div><div class="req-val guide">The system SHALL [describe the required behaviour. One sentence. Start with the system as subject.]</div></div>
+        <div class="req-row"><div class="req-label">Rationale</div><div class="req-val guide">Why is this requirement necessary? Link to a business objective, business rule, or stakeholder need.</div></div>
+        <div class="req-row"><div class="req-label">Priority</div><div class="req-val">HIGH / MEDIUM / LOW</div></div>
+        <div class="req-row"><div class="req-label">Source</div><div class="req-val guide">Stakeholder name, document reference, or discovery evidence</div></div>
+        <div class="req-row"><div class="req-label">Fit criterion</div><div class="req-val guide">A measurable or verifiable condition that, if met, confirms the requirement is satisfied. Avoid subjective language.</div></div>
+        <div class="req-row"><div class="req-label">Dependencies</div><div class="req-val guide">BR-XXX, CON-XXX, FR-XXX, or external system</div></div>
+        <div class="req-row"><div class="req-label">Status</div><div class="req-val">Draft / Under review / Approved</div></div>
+        <div class="req-row"><div class="req-label">Comments</div><div class="req-val guide">Any notes, open points, or caveats relevant to this requirement</div></div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="req-head"><span class="req-id">FR-002</span><span class="req-title ph">[Requirement title]</span><span class="tmpl-badge" style="margin:0;font-size:0.66rem;padding:2px 8px">Draft</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Structure</div><div class="req-val guide">Same eight fields as FR-001.</div></div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="req-head"><span class="req-id">FR-003</span><span class="req-title ph">[Requirement title]</span><span class="tmpl-badge" style="margin:0;font-size:0.66rem;padding:2px 8px">TBD</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Structure</div><div class="req-val guide">Same eight fields. Comments field describes what must be resolved for the requirement to be finalised.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§9</span>Non-functional requirements</h2>
+    <p class="guide">Include only the relevant categories. Each statement uses SHALL for mandatory requirements.</p>
+    <table>
+      <thead><tr><th>ID</th><th>Category</th><th>Statement</th><th>Fit criterion</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">NFR-001</td><td>Performance</td><td class="ph">[The system SHALL process the operation within …]</td><td class="ph">[Measurable target under standard load]</td><td>HIGH</td></tr>
+        <tr><td class="id-cell">NFR-002</td><td>Security</td><td class="ph">[Only users with … permission SHALL …]</td><td class="ph">[Requests without the required permission are rejected; control is server-side]</td><td>HIGH</td></tr>
+        <tr><td class="id-cell">NFR-003</td><td>Reliability</td><td class="ph">[Partial failures SHALL not result in data loss]</td><td class="ph">[Already-created records are preserved and not rolled back]</td><td>HIGH</td></tr>
+        <tr><td class="id-cell">NFR-004</td><td>Data integrity</td><td class="ph">[Source data SHALL NOT be modified during the operation]</td><td class="ph">[Automated integrity check confirms source record unchanged]</td><td>HIGH</td></tr>
+        <tr><td class="id-cell">NFR-005</td><td>Scalability</td><td class="ph">[The system SHALL support … concurrent operations without degradation]</td><td class="ph">[Load test confirms acceptable response times at expected peak volume]</td><td>MEDIUM</td></tr>
+        <tr><td class="id-cell">NFR-006</td><td>Usability / accessibility</td><td class="ph">[The interface SHALL meet …]</td><td class="ph">[Standard, verified by automated audit and manual review]</td><td>MEDIUM</td></tr>
+        <tr><td class="id-cell">NFR-007</td><td>Compliance</td><td class="ph">[The system SHALL comply with …]</td><td class="ph">[Compliance verified by audit, certification, or legal review]</td><td>HIGH</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§10</span>Use cases and scenarios</h2>
+    <h3>10.1 Use case model</h3>
+    <div class="req">
+      <div class="req-head"><span class="req-id">UC-01</span><span class="req-title ph">[Use case title]</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Goal</div><div class="req-val guide">What the primary actor is trying to achieve through this interaction</div></div>
+        <div class="req-row"><div class="req-label">Primary actor</div><div class="req-val guide">The main user role or system initiating the interaction</div></div>
+        <div class="req-row"><div class="req-label">Secondary actors</div><div class="req-val guide">Other systems or roles involved in fulfilling the use case</div></div>
+        <div class="req-row"><div class="req-label">Preconditions</div><div class="req-val guide">Conditions that must be true before the use case can begin</div></div>
+        <div class="req-row"><div class="req-label">Trigger</div><div class="req-val guide">What initiates the use case — an actor action, a scheduled event, an external message</div></div>
+        <div class="req-row"><div class="req-label">Main success scenario</div><div class="req-val guide">Numbered steps from the initial action through to the confirmed outcome state</div></div>
+        <div class="req-row"><div class="req-label">Alternative flows</div><div class="req-val guide">AF-01, AF-02 — alternative paths that also lead to a successful outcome</div></div>
+        <div class="req-row"><div class="req-label">Exception flows</div><div class="req-val guide">EF-01, EF-02 — what happens when something goes wrong: permission denied, validation failure, external system unavailable</div></div>
+        <div class="req-row"><div class="req-label">Postconditions</div><div class="req-val guide">System state after success, and after failure with no unintended data changes</div></div>
+      </div>
+    </div>
+    <h3>10.2 Scenarios</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Given</th><th>When</th><th>Then</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">S-01</td><td class="ph">[Context — who the actor is and what state the system is in]</td><td class="ph">[The specific action the actor takes]</td><td class="ph">[The expected outcome]</td></tr>
+      </tbody>
+    </table>
+    <p class="guide">Scenarios should collectively cover the main success path, significant alternative paths, and key exception flows. Each relates back to specific requirements, rules, and use cases.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§11–§12</span>Data, interfaces, models and diagrams <span class="guide">(optional)</span></h2>
+    <p class="guide"><strong>§11 Data and interface requirements</strong> — included when data exchange or system integration is relevant. Covers systems involved, data exchanged, interface contracts, data ownership, retention and deletion, access rules, and known technical constraints.</p>
+    <p class="guide"><strong>§12 Models and diagrams</strong> — context diagram, process or activity diagram, state model, sequence diagram, and optionally a data model. Diagrams are supplementary to the written requirements, not a replacement for them.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§13</span>Traceability matrix</h2>
+    <p class="guide">Ensures every requirement can be traced from its source through to use cases, scenarios, and test cases.</p>
+    <table>
+      <thead><tr><th>Req.</th><th>Source</th><th>Rule</th><th>Use case</th><th>Scenario</th><th>Test case</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">FR-001</td><td class="ph">[Source]</td><td class="id-cell ph">BR-XXX</td><td>UC-01</td><td>S-01</td><td class="id-cell">TC-001</td><td>Draft</td></tr>
+        <tr><td class="id-cell">FR-002</td><td class="ph">[Source]</td><td class="id-cell ph">BR-XXX</td><td>UC-01</td><td>S-01, S-02</td><td class="id-cell">TC-002</td><td>Draft</td></tr>
+        <tr><td class="id-cell">NFR-001</td><td class="ph">[Source]</td><td>—</td><td>UC-01</td><td>—</td><td class="id-cell">TC-NFR-001</td><td>Draft</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§14</span>Acceptance and fit criteria</h2>
+    <p class="guide">Conditions under which a requirement or feature will be formally accepted, in Given / When / Then format for testability.</p>
+    <table>
+      <thead><tr><th>ID</th><th>Given</th><th>When</th><th>Then</th><th>Relates to</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">AC-001</td><td class="ph">[Context — actor and system state]</td><td class="ph">[The action taken]</td><td class="ph">[The expected observable outcome]</td><td class="id-cell ph">FR-001, S-01</td></tr>
+        <tr><td class="id-cell">AC-002</td><td class="ph">[Context]</td><td class="ph">[Action]</td><td class="ph">[Expected outcome]</td><td class="id-cell ph">FR-002, S-01</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§15</span>Risks, dependencies and open issues</h2>
+    <table>
+      <thead><tr><th>ID</th><th>Item</th><th>Type</th><th>Owner</th><th>Likelihood</th><th>Mitigation</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">OI-001</td><td class="ph">[Open question]</td><td>Open issue</td><td class="ph">[PM / BA / Engineering]</td><td class="ph">[High / Medium]</td><td class="ph">[Interim assumption or action plan]</td><td>Open</td></tr>
+        <tr><td class="id-cell">RISK-001</td><td class="ph">[Risk — e.g. dependency on an unconfirmed external system]</td><td>Risk</td><td class="ph">[Owner]</td><td class="ph">[Medium / High]</td><td class="ph">[Mitigation action]</td><td>Open</td></tr>
+        <tr><td class="id-cell">DEP-001</td><td class="ph">[Dependency — e.g. availability of a service or team by a date]</td><td>Dependency</td><td class="ph">[Owner]</td><td class="ph">[High]</td><td class="ph">[Action to confirm or de-risk]</td><td>Open</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">§16</span>Approval and change control</h2>
+    <h3>16.1 Document approval</h3>
+    <p class="guide">The document is baselined when all required approvers have confirmed in writing or via the project's formal approval process. Approvers are recorded with name, role, organisation, and approval date.</p>
+    <h3>16.2 Change control</h3>
+    <p class="guide">After baselining, any change must follow the agreed change control process. Approved changes are recorded in the revision history with a change request ID, description, requester, approver, date, and resulting version.</p>
+  </section>
+
+  <div class="btn-row">
+    <a class="btn btn-primary" href="../downloads/formal-requirements-specification-template.docx" download>Download DOCX</a>
+  </div>
+
+  <div class="related">
+    <h3>Related artefacts</h3>
+    <div class="rel-grid">
+      <a class="rel-card" href="product-delivery-specification-template.html">
+        <div class="rel-eyebrow">Blank reusable template</div>
+        <h4>Product Delivery Specification</h4>
+        <p>Product-led delivery structure</p>
+      </a>
+      <a class="rel-card" href="../case-study-course-session-duplication.html">
+        <div class="rel-eyebrow">Case study</div>
+        <h4>Course and Session Duplication</h4>
+        <p>A worked case, documented two ways</p>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>Elena Ticca · Senior Business Analyst · Requirements Engineering · Product Delivery</footer>
+
+</body>
+</html>
