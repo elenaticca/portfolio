@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Course and Session Duplication — Case Study | Elena Ticca</title>
+<meta name="description" content="An anonymised B2B SaaS product case study on scoping and specifying a course and session duplication capability."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f7f5f2;
+  --surface:#ffffff;
+  --surface2:#f0ece6;
+  --text:#1c2333;
+  --muted:#4a5568;
+  --subtle:#616a7d;
+  --accent:#2d4270;
+  --accent-dim:#4a628f;
+  --border:rgba(28,35,51,0.10);
+  --border2:rgba(28,35,51,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+  line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+
+/* Header + breadcrumb */
+.top-nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,245,242,0.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.back-link{
+  font-size:0.84rem;color:var(--accent-dim);display:inline-flex;align-items:center;gap:7px;
+  transition:color 180ms;
+}
+.back-link:hover{color:var(--accent)}
+.back-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.breadcrumb{font-size:0.78rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.breadcrumb a{color:var(--accent-dim);transition:color 180ms}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.breadcrumb span[aria-current]{color:var(--muted)}
+
+.wrap{max-width:900px;margin:0 auto;padding:56px 48px 80px}
+
+/* Page head */
+.doc-ref{
+  display:inline-block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent-dim);border:1px solid var(--border2);border-radius:3px;
+  padding:4px 10px;margin-bottom:16px;
+}
+h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.9rem,3.4vw,2.7rem);
+  line-height:1.08;font-weight:400;
+  letter-spacing:-0.01em;margin-bottom:12px;color:var(--text);
+}
+.doc-class{font-size:0.93rem;color:var(--muted);line-height:1.85;margin-bottom:8px}
+.section-line{width:56px;height:1px;background:linear-gradient(90deg,var(--accent-dim),transparent);margin:20px 0 32px}
+
+/* Transparency notice - high contrast, clearly visible */
+.notice{
+  background:#eef2fa;border:1px solid var(--border2);
+  border-left:3px solid var(--accent);border-radius:5px;
+  padding:18px 22px;margin:26px 0 40px;
+  font-size:0.87rem;color:var(--text);line-height:1.75;
+}
+.notice strong{color:var(--text);font-weight:600}
+
+/* Sections */
+section{margin-bottom:44px}
+h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.35rem,2.2vw,1.75rem);
+  font-weight:400;letter-spacing:-0.01em;
+  color:var(--text);margin-bottom:6px;line-height:1.15;
+  padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.sec-num{font-family:'DM Sans',sans-serif;font-size:0.72rem;color:var(--accent-dim);letter-spacing:0.1em;margin-right:10px}
+h3{font-size:0.97rem;font-weight:600;color:var(--text);margin:26px 0 10px;font-family:'DM Sans',sans-serif}
+p{color:var(--muted);margin-bottom:14px;font-size:0.9rem}
+ul,ol{margin:0 0 16px 0;padding-left:0;list-style:none}
+li{color:var(--muted);font-size:0.88rem;padding:4px 0 4px 16px;position:relative;line-height:1.7}
+li::before{content:'·';position:absolute;left:0;color:var(--accent-dim);font-size:1.1rem;line-height:1.5}
+ol{counter-reset:n}
+ol li{padding-left:26px}
+ol li::before{content:counter(n);counter-increment:n;font-size:0.76rem;color:var(--accent-dim);font-feature-settings:'tnum';top:5px}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:0.85rem}
+th{
+  text-align:left;font-weight:500;font-size:0.7rem;letter-spacing:0.07em;text-transform:uppercase;
+  color:var(--accent-dim);padding:11px 14px;border-bottom:1px solid var(--border2);
+  background:var(--surface2);
+}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.id-cell{color:var(--accent-dim);font-size:0.8rem;white-space:nowrap;font-feature-settings:'tnum'}
+
+/* Requirement blocks */
+.req{background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:16px;overflow:hidden}
+.req-head{
+  background:var(--surface2);padding:13px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.req-id{font-size:0.72rem;color:var(--accent-dim);letter-spacing:0.06em;font-feature-settings:'tnum'}
+.req-title{font-size:0.94rem;color:var(--text);font-weight:600}
+.req-body{padding:6px 20px 16px}
+.req-row{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
+.req-row:last-child{border-bottom:none}
+.req-label{font-size:0.7rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent-dim);padding-top:2px}
+.req-val{font-size:0.87rem;color:var(--muted);line-height:1.7}
+
+/* Callouts */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px}
+.box h4{font-size:0.88rem;color:var(--text);margin-bottom:10px;font-weight:600}
+.box.excl{border-color:var(--border2)}
+
+/* Flow steps */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.flow-step{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px}
+.flow-num{font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px}
+.flow-step h4{font-size:0.9rem;color:var(--text);margin-bottom:6px;font-weight:600}
+.flow-step p{font-size:0.8rem;margin:0}
+
+/* Placeholder styling for blank templates */
+.ph{color:var(--accent-dim);font-style:italic}
+.guide{color:var(--muted);opacity:0.85;font-size:0.83rem;font-style:italic}
+.tmpl-badge{
+  display:inline-block;background:var(--surface2);border:1px solid var(--border2);
+  border-radius:3px;padding:4px 11px;font-size:0.72rem;color:var(--muted);
+  letter-spacing:0.05em;margin-bottom:16px;
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;font-size:0.83rem;
+  border-radius:4px;padding:11px 20px;transition:background 180ms,border-color 180ms,color 180ms;
+}
+.btn-primary{background:var(--accent);color:#ffffff;border:1px solid var(--accent);font-weight:500}
+.btn-primary:hover{background:var(--accent-dim);border-color:var(--accent-dim);color:#ffffff}
+.btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-secondary:hover{color:var(--text);border-color:var(--accent-dim)}
+.btn-secondary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+
+/* Related artefacts nav */
+.related{border-top:1px solid var(--border);margin-top:52px;padding-top:32px}
+.related h3{font-size:0.98rem;margin:0 0 16px}
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rel-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:18px 20px;
+  transition:border-color 180ms,background 180ms;display:block;
+}
+.rel-card:hover{border-color:var(--border2);background:var(--surface2)}
+.rel-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rel-eyebrow{font-size:0.66rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:7px}
+.rel-card h4{font-size:0.88rem;color:var(--text);font-weight:600;margin-bottom:4px}
+.rel-card p{font-size:0.79rem;color:var(--muted);margin:0}
+
+footer{
+  border-top:1px solid var(--border);padding:24px 40px;
+  font-size:0.79rem;color:var(--muted);text-align:center;
+}
+
+@media(max-width:820px){
+  .top-nav{padding:14px 22px}
+  .wrap{padding:40px 22px 60px}
+  h1{font-size:1.6rem}
+  .split,.rel-grid,.flow{grid-template-columns:1fr}
+  .req-row{grid-template-columns:1fr;gap:4px}
+  table{font-size:0.8rem}
+  th,td{padding:9px 10px}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="index.html">← Back to portfolio</a>
+  <div class="breadcrumb">
+    <a href="index.html">Portfolio</a>
+    <span>/</span>
+    <span aria-current="page">Case Study</span>
+  </div>
+</nav>
+
+<main class="wrap">
+  <span class="doc-ref">Case-01</span>
+  <h1>Course and Session Duplication</h1>
+  <p class="doc-class">An anonymised B2B SaaS product case</p>
+  <div class="section-line"></div>
+
+  <div class="notice">
+    This case study is based on anonymised professional product work. Company-specific information, internal identifiers, and implementation details have been removed or generalised.
+  </div>
+
+  <section>
+    <h2><span class="sec-num">01</span>Case overview</h2>
+    <p>A B2B SaaS learning platform supported scheduled training courses made up of individual sessions, each with its own date, location, and assigned trainer. Organisations running recurring programmes had to rebuild every new edition manually, course settings and sessions alike.</p>
+    <p>The work covered the analysis and specification of a duplication capability: defining what could be copied, what had to be excluded, who was allowed to perform the action, how the system should behave at each step, and what should happen when something went wrong partway through.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">02</span>Business problem</h2>
+    <p>Administrators creating a new course similar to an existing one had to recreate all settings and every session from scratch. No duplication capability existed for this course type, although comparable mechanisms already existed elsewhere on the platform.</p>
+    <p>The consequences were operational rather than technical: configuration time that scaled linearly with the number of sessions, inconsistency between editions of the same programme, and a rising chance of manual error as programme volume grew.</p>
+    <h3>Expected value</h3>
+    <ul>
+      <li>Reduced setup time when configuring recurring course editions</li>
+      <li>Fewer manual configuration errors on repeated programme structures</li>
+      <li>Greater consistency across editions of the same programme</li>
+      <li>Improved day-to-day operational efficiency for administrative users</li>
+    </ul>
+    <p class="guide">These were the anticipated benefits used to justify the work. They are stated as expected value, not as measured results.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">03</span>My role and contribution</h2>
+    <p>I led the requirements engineering and functional analysis for this capability, working between product management, design, engineering, and QA.</p>
+    <ul>
+      <li>Clarified the business need and translated it into a defined, bounded scope</li>
+      <li>Established which data could be copied and which had to be excluded, and why</li>
+      <li>Specified functional and non-functional requirements with verifiable criteria</li>
+      <li>Modelled the user flow, system behaviour, and permission constraints</li>
+      <li>Documented edge cases, error states, and partial-failure handling</li>
+      <li>Defined acceptance criteria to support development and testing</li>
+      <li>Surfaced open decisions that required product input before implementation</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">04</span>Analysis approach</h2>
+    <p>The central difficulty was not building a copy function. It was deciding precisely what a copy should mean in a system where course data and learner data are entangled.</p>
+    <p>Duplicating a course naively would carry across learner registrations and historical records, producing a new course populated with people who never enrolled in it. The analysis therefore started from the exclusions and worked outwards.</p>
+    <ol>
+      <li>Separated course configuration from learner-generated data, and drew the boundary between them</li>
+      <li>Mapped the administrator's journey as a stepped flow with an explicit review point before any irreversible action</li>
+      <li>Defined business rules covering data integrity, permissions, and the applicable course type</li>
+      <li>Specified system behaviour for each branch of the flow, including failure paths</li>
+      <li>Wrote acceptance criteria in a form testable by QA without further interpretation</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">05</span>Scope and explicit exclusions</h2>
+    <p>Stating the exclusions as firmly as the inclusions was the decision that shaped everything downstream.</p>
+    <div class="split">
+      <div class="box">
+        <h4>In scope</h4>
+        <ul>
+          <li>Course configuration and settings</li>
+          <li>All associated sessions</li>
+          <li>A user-selected subset of sessions</li>
+          <li>Stepped selection flow with review</li>
+          <li>Validation before confirmation</li>
+        </ul>
+      </div>
+      <div class="box excl">
+        <h4>Explicitly excluded</h4>
+        <ul>
+          <li>Learner enrolments</li>
+          <li>Attendance records</li>
+          <li>Historical completion data</li>
+          <li>Redesign of session structure</li>
+          <li>Other course types</li>
+        </ul>
+      </div>
+    </div>
+    <p>The duplicated course is fully independent from its source once created. The source itself is never altered by the operation.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">06</span>Simplified user and system flow</h2>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">Step 01</div>
+        <h4>Select type</h4>
+        <p>Course only, course with all sessions, or course with selected sessions.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Step 02</div>
+        <h4>Select sessions</h4>
+        <p>Active only when a subset is chosen. Unavailable sessions are shown but cannot be selected.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Step 03</div>
+        <h4>Review and confirm</h4>
+        <p>Summary of exactly what will be created. The administrator can confirm or go back.</p>
+      </div>
+    </div>
+    <p>Behind the flow, the system verifies permissions before the first step, validates the selection before the review, and only then creates the new course and its sessions.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">07</span>Selected business rules</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Rule</th><th>Rationale</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="id-cell">BR-01</td><td>Learner registrations are never duplicated</td><td>Prevents irrelevant historical data and inconsistent registrations on the new course</td></tr>
+        <tr><td class="id-cell">BR-02</td><td>Source course data remains unchanged after duplication</td><td>Data integrity and no regression for learners already enrolled</td></tr>
+        <tr><td class="id-cell">BR-03</td><td>Only users with the relevant management permission may initiate duplication</td><td>Access control and data security</td></tr>
+        <tr><td class="id-cell">BR-04</td><td>The capability applies only to the applicable course type</td><td>Scope boundary; other course types have separate mechanisms</td></tr>
+        <tr><td class="id-cell">BR-05</td><td>If some sessions fail, the course is still created</td><td>Prevents total loss of work; failures are surfaced rather than hidden</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">08</span>Selected functional requirements</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Requirement</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="id-cell">FR-01</td><td>An authorised administrator can initiate the duplication flow from an existing course</td></tr>
+        <tr><td class="id-cell">FR-02</td><td>The administrator can choose among three duplication modes</td></tr>
+        <tr><td class="id-cell">FR-03</td><td>The administrator can select a subset of sessions when that mode is active</td></tr>
+        <tr><td class="id-cell">FR-04</td><td>The system validates the selection before allowing final confirmation</td></tr>
+        <tr><td class="id-cell">FR-05</td><td>The system presents a review summary before executing the operation</td></tr>
+        <tr><td class="id-cell">FR-06</td><td>The system completes course creation even when individual sessions fail, and reports which ones</td></tr>
+      </tbody>
+    </table>
+    <p>Non-functional requirements covered responsiveness under normal load, recoverability from partial failures, server-side permission enforcement, and verified immutability of the source course.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">09</span>Acceptance criteria</h2>
+    <p>Each requirement was paired with criteria written so QA could verify them without needing to reinterpret intent.</p>
+    <table>
+      <thead>
+        <tr><th>Given</th><th>When</th><th>Then</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>An authorised administrator is viewing a course</td><td>They duplicate it with all sessions</td><td>A new course is created with all sessions; the source is unchanged</td></tr>
+        <tr><td>The administrator chooses a subset of sessions</td><td>They select some and confirm</td><td>Only the selected sessions appear in the new course</td></tr>
+        <tr><td>The administrator chooses course only</td><td>They confirm in the review step</td><td>A new course is created with no sessions</td></tr>
+        <tr><td>A user lacks the required permission</td><td>They attempt to initiate duplication</td><td>The action is blocked; no data is created</td></tr>
+        <tr><td>One session fails during creation</td><td>The system processes all sessions</td><td>The course is created; a warning identifies the failed session</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">10</span>Edge cases and partial-failure considerations</h2>
+    <p>Most of the analytical effort went here. The straightforward path was quick to specify; the exceptions determined whether the feature would be trustworthy.</p>
+    <ul>
+      <li><strong>Partial failure.</strong> If some sessions fail while others succeed, the course is still created and the administrator is told exactly which sessions were not copied. Silent failure was explicitly rejected.</li>
+      <li><strong>Permission lost mid-flow.</strong> The operation is blocked rather than half-completed.</li>
+      <li><strong>Source deleted while the flow is open.</strong> The flow terminates with a clear error and no data is created.</li>
+      <li><strong>Session becomes unavailable during selection.</strong> It is excluded and the administrator is notified inline rather than at confirmation.</li>
+      <li><strong>Validation failure.</strong> Field-level errors are shown and progression is blocked before anything is created.</li>
+      <li><strong>No sessions available.</strong> An explanatory empty state, rather than an empty list with no context.</li>
+    </ul>
+    <h3>Open decisions raised</h3>
+    <p>Three questions were surfaced for product decision before development rather than resolved by assumption: whether archived sessions should be selectable, whether the new course name should be editable or auto-assigned, and what state a course should be in following a partial failure.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">11</span>Two documentation approaches</h2>
+    <p>The same scenario is documented twice, to show how requirements structure changes with delivery context rather than with content.</p>
+    <p>The <strong>product delivery specification</strong> is the applied artefact: requirement descriptions paired with interface behaviour, validation rules, and edge cases, written for a cross-functional team working in iterative cycles.</p>
+    <p>The <strong>formal requirements specification</strong> restructures the identical scenario for an enterprise or client-facing setting: normative statements with rationale and fit criteria, a full use case model, and traceability across rules, scenarios, and acceptance criteria.</p>
+    <p class="guide">The formal version is a portfolio adaptation. It does not represent a separate client engagement.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">12</span>The two completed examples</h2>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="artefacts/course-duplication-product-delivery-example.html">View product delivery specification →</a>
+      <a class="btn btn-secondary" href="artefacts/course-duplication-formal-requirements-adaptation.html">View formal requirements adaptation →</a>
+    </div>
+  </section>
+
+  <div class="related">
+    <h3>Related artefacts</h3>
+    <div class="rel-grid">
+      <a class="rel-card" href="artefacts/product-delivery-specification-template.html">
+        <div class="rel-eyebrow">Blank reusable template</div>
+        <h4>Product Delivery Specification</h4>
+        <p>Empty structure, independent of this case</p>
+      </a>
+      <a class="rel-card" href="artefacts/formal-requirements-specification-template.html">
+        <div class="rel-eyebrow">Blank reusable template</div>
+        <h4>Formal Requirements Specification</h4>
+        <p>Empty structure, independent of this case</p>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>Elena Ticca · Senior Business Analyst · Requirements Engineering · Product Delivery</footer>
+
+</body>
+</html>

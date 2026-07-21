@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Elena Ticca | Senior Business Analyst</title>
+<meta name="description" content="Portfolio of Elena Ticca, Senior Business Analyst specialising in requirements engineering, functional analysis, B2B SaaS, enterprise platforms, integrations, and product delivery."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display@0;1&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#0f172a;
+  --surface:#111c31;
+  --surface2:#17243d;
+  --text:#edf2f7;
+  --muted:#8896b0;
+  --subtle:#2e3f5c;
+  --accent:#dbe7ff;
+  --accent-dim:#5f7ab8;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px}
+a{color:inherit;text-decoration:none}
+
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 48px;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:99;
+  background:rgba(15,23,42,0.88);
+  backdrop-filter:blur(12px);
+}
+.logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);letter-spacing:0.01em}
+.nav-links{display:flex;gap:24px;font-size:0.82rem;color:var(--muted)}
+.nav-links a{transition:color 180ms}.nav-links a:hover{color:var(--text)}
+
+.hero-wrap{max-width:1100px;margin:0 auto}
+.hero{
+  padding:96px 48px 80px;
+  border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 290px;gap:56px;align-items:start;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.78rem;color:var(--accent);
+  background:rgba(255,255,255,0.04);border:1px solid var(--border2);
+  border-radius:999px;padding:5px 12px;margin-bottom:24px;
+  letter-spacing:0.02em;
+}
+h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,4vw,3.4rem);
+  line-height:1.06;font-weight:400;
+  letter-spacing:-0.01em;margin-bottom:20px;color:var(--text);
+}
+.hero-lead{font-size:0.97rem;color:var(--muted);line-height:1.85;max-width:500px;margin-bottom:32px}
+.hero-actions{display:flex;gap:20px;align-items:center}
+.btn-primary{
+  background:var(--accent);color:#0f172a;padding:10px 20px;
+  border-radius:4px;font-weight:600;font-size:0.87rem;
+  transition:opacity 180ms;display:inline-block;
+}
+.btn-primary:hover{opacity:0.87}
+.btn-ghost{color:var(--muted);font-size:0.87rem;transition:color 180ms}
+.btn-ghost:hover{color:var(--text)}
+
+.profile-aside{
+  background:rgba(17,28,49,0.7);border:1px solid var(--border2);
+  border-radius:6px;padding:24px;
+}
+.profile-name{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text);margin-bottom:4px}
+.profile-loc{font-size:0.8rem;color:var(--muted);margin-bottom:14px}
+.profile-note{font-size:0.84rem;color:var(--muted);line-height:1.75;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.aside-section-label{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-dim);font-weight:500;margin-bottom:12px}
+.chip-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;margin-bottom:4px}
+.chip{font-size:0.72rem;color:var(--muted);padding:4px 9px;background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:999px}
+
+.wrap{max-width:1100px;margin:0 auto;padding:80px 48px}
+.divider{border-top:1px solid var(--border)}
+h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.7rem,3vw,2.4rem);
+  font-weight:400;letter-spacing:-0.01em;
+  margin-bottom:10px;line-height:1.1;color:var(--text);
+}
+.section-sub{color:var(--muted);max-width:680px;line-height:1.85;margin-bottom:44px;font-size:0.93rem}
+.section-line{width:56px;height:1px;background:linear-gradient(90deg,var(--accent-dim),transparent);margin:18px 0 40px}
+h3{font-size:0.97rem;font-weight:600;margin-bottom:8px;color:var(--text)}
+
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.about-block{background:var(--surface);padding:26px 22px;transition:background 180ms}
+.about-block:hover{background:var(--surface2)}
+.about-block p{font-size:0.86rem;color:var(--muted);line-height:1.8;margin-top:6px}
+
+.caps{border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.cap-row{display:grid;grid-template-columns:192px 1fr;background:var(--surface);border-bottom:1px solid var(--border);transition:background 180ms}
+.cap-row:last-child{border-bottom:none}
+.cap-row:hover{background:var(--surface2)}
+.cap-label{padding:16px 22px;font-size:0.78rem;color:var(--accent-dim);font-weight:500;border-right:1px solid var(--border);letter-spacing:0.03em}
+.cap-val{padding:16px 22px;font-size:0.86rem;color:var(--muted)}
+
+.exp-list{border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.exp-item{background:var(--surface);border-bottom:1px solid var(--border);transition:background 180ms}
+.exp-item:last-child{border-bottom:none}
+.exp-role{font-weight:600;font-size:0.93rem;color:var(--text);margin-bottom:3px}
+.exp-co{font-size:0.8rem;color:var(--accent-dim);margin-bottom:4px}
+.exp-desc{font-size:0.82rem;color:var(--muted)}
+.exp-date{font-size:0.77rem;color:var(--muted);line-height:1.5;font-feature-settings:'tnum'}
+.exp-date-inline{display:none;font-size:0.75rem;color:var(--muted);margin-bottom:5px;font-feature-settings:'tnum'}
+.exp-top{display:grid;grid-template-columns:156px 1fr;gap:20px;padding:20px 22px 0}
+.exp-summary{padding:14px 22px 18px 198px}
+.exp-summary ul{list-style:none;padding:0;margin:0}
+.exp-summary li{font-size:0.83rem;color:var(--muted);padding:3px 0 3px 14px;position:relative;line-height:1.7}
+.exp-summary li::before{content:'·';position:absolute;left:0;color:var(--accent-dim);font-size:1rem;line-height:1.5}
+.exp-toggle{
+  display:flex;align-items:center;gap:8px;width:100%;
+  background:none;border:none;color:var(--accent-dim);
+  font-family:inherit;font-size:0.78rem;cursor:pointer;
+  padding:0 22px 18px 198px;text-align:left;
+  transition:color 180ms;
+}
+.exp-toggle:hover{color:var(--accent)}
+.exp-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.exp-plus{font-size:1rem;transition:transform 240ms;user-select:none;line-height:1;display:inline-block}
+.exp-toggle[aria-expanded="true"] .exp-plus{transform:rotate(45deg)}
+.exp-detail{max-height:0;overflow:hidden;transition:max-height 320ms ease}
+.exp-detail-inner{padding:0 22px 22px 198px;border-top:1px solid var(--border)}
+.exp-detail-inner ul{list-style:none;padding:14px 0 0;margin:0}
+.exp-detail-inner li{font-size:0.83rem;color:var(--muted);padding:3px 0 3px 14px;position:relative;line-height:1.7}
+.exp-detail-inner li::before{content:'·';position:absolute;left:0;color:var(--accent-dim);font-size:1rem;line-height:1.5}
+@media(max-width:860px){
+  .exp-top{grid-template-columns:1fr;padding:18px 18px 0}
+  .exp-toggle{padding:0 18px 16px}
+}
+
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:26px;transition:border-color 180ms,background 180ms}
+.proj-card:hover{border-color:var(--border2);background:var(--surface2)}
+.proj-meta{font-size:0.74rem;color:var(--accent-dim);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px}
+.proj-card p{font-size:0.86rem;color:var(--muted);margin-top:6px;line-height:1.8}
+.proj-card ul{list-style:none;margin-top:12px;padding:0}
+.proj-card li{font-size:0.83rem;color:var(--muted);padding:3px 0 3px 14px;position:relative}
+.proj-card li::before{content:'·';position:absolute;left:0;color:var(--accent-dim);font-size:1rem;line-height:1.5}
+/* Four-step approach cards */
+.step-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+.step-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:26px 24px}
+.step-num{font-size:0.7rem;letter-spacing:0.12em;color:var(--subtle);font-feature-settings:'tnum';margin-bottom:10px}
+.step-card h4{font-size:0.98rem;color:var(--text);font-weight:600;margin-bottom:8px}
+.step-card p{font-size:0.83rem;color:var(--muted);line-height:1.75;margin:0}
+
+/* Case study preview card */
+.case-card{background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:32px;margin-top:24px}
+.case-ref{display:inline-block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-dim);border:1px solid var(--subtle);border-radius:3px;padding:3px 8px;margin-bottom:14px}
+.case-card h3{font-size:1.12rem;color:var(--text);margin-bottom:4px}
+.case-class{font-size:0.78rem;color:var(--muted);margin-bottom:16px}
+.case-body{font-size:0.88rem;color:var(--muted);line-height:1.8;margin-bottom:18px}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tag{font-size:0.73rem;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:5px 11px}
+.case-note{font-size:0.8rem;color:var(--muted);line-height:1.7;margin-top:16px;max-width:64ch;padding-left:12px;border-left:2px solid var(--border2)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-size:0.82rem;border-radius:4px;padding:11px 20px;transition:background 180ms,border-color 180ms,color 180ms;cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--bg);border:1px solid var(--accent);font-weight:500}
+.btn-primary:hover{background:var(--accent-dim);border-color:var(--accent-dim)}
+.btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-secondary:hover{color:var(--text);border-color:var(--accent-dim)}
+.btn-secondary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+
+/* Documentation approach cards */
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.doc-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:28px;display:flex;flex-direction:column;transition:border-color 180ms,background 180ms}
+.doc-card:hover{border-color:var(--border2);background:var(--surface2)}
+.doc-card:focus-within{border-color:var(--accent-dim)}
+.doc-eyebrow{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:11px}
+.doc-card h4{font-size:1rem;color:var(--text);font-weight:600;margin-bottom:9px}
+.doc-desc{font-size:0.84rem;color:var(--muted);line-height:1.75;margin-bottom:15px}
+.doc-key{list-style:none;padding:0;margin:0 0 auto}
+.doc-key li{font-size:0.8rem;color:var(--muted);padding:4px 0 4px 15px;position:relative;line-height:1.6}
+.doc-key li::before{content:'·';position:absolute;left:0;color:var(--accent-dim);font-size:1rem;line-height:1.4}
+.doc-note{font-size:0.79rem;color:var(--muted);line-height:1.7;margin-top:16px;padding-top:14px;border-top:1px solid var(--border2)}
+
+/* Blank templates - secondary */
+.blank-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.blank-item{border:1px solid var(--border);border-radius:5px;padding:18px 20px;background:transparent}
+.blank-item h5{font-size:0.85rem;color:var(--muted);font-weight:500;margin-bottom:10px}
+.blank-links{display:flex;flex-wrap:wrap;gap:16px}
+.blank-link{font-size:0.77rem;color:var(--accent-dim);border-bottom:1px solid var(--subtle);padding-bottom:1px;transition:color 180ms,border-color 180ms}
+.blank-link:hover{color:var(--accent);border-color:var(--accent)}
+.blank-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+@media(max-width:860px){
+  .step-grid,.doc-grid,.blank-grid{grid-template-columns:1fr}
+  .case-card{padding:24px}
+  .doc-card{padding:22px}
+}
+.proj-card--secondary{background:transparent}
+.proj-card--secondary h3{font-size:0.98rem}
+.proj-note{font-size:0.76rem;color:var(--subtle);margin-top:14px;font-style:italic;line-height:1.6}
+
+.contact-links{display:flex;flex-direction:column;gap:18px;justify-content:center}
+.contact-link{display:flex;flex-direction:column;gap:2px;font-size:0.86rem;color:var(--muted);transition:color 180ms,border-color 180ms}
+.contact-link:hover{color:var(--text)}
+.contact-link strong{font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent-dim);font-weight:500}
+
+footer{border-top:1px solid var(--border);padding:26px 48px;font-size:0.8rem;color:var(--muted);display:flex;justify-content:space-between;max-width:1100px;margin:0 auto}
+
+.fade-up{opacity:0;transform:translateY(14px);transition:opacity 560ms ease,transform 560ms ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.fade-up{opacity:1;transform:none;transition:none}}
+
+@media(max-width:860px){
+  nav{padding:14px 20px;flex-wrap:wrap;gap:10px}
+  .nav-links{
+    display:flex;gap:18px;width:100%;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;padding-bottom:2px;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{white-space:nowrap;padding:4px 0}
+  .hero{grid-template-columns:1fr;padding:56px 24px 48px;gap:36px}
+  .wrap{padding:60px 24px}
+  .about-grid{grid-template-columns:1fr}
+  .cap-row{grid-template-columns:1fr}
+  .cap-label{border-right:none;border-bottom:1px solid var(--border)}
+  .exp-header{grid-template-columns:1fr 28px;gap:12px;padding:18px}
+  .exp-date{display:none}
+  .exp-date-inline{display:block}
+  .exp-summary{padding:0 18px 16px}
+  .exp-detail-inner{padding:0 18px 18px}
+  .proj-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:6px;padding:24px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="#top">Elena Ticca</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#capabilities">Approach</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <div class="hero-wrap">
+    <div class="hero">
+      <div class="fade-up">
+        <div class="eyebrow">Senior Business Analyst · Requirements Engineering · Product Delivery</div>
+        <h1>Turning complex business needs into clear, structured, delivery-ready solutions.</h1>
+        <p class="hero-lead">Senior Business Analyst with 10 years of experience across B2B SaaS, enterprise applications, and complex digital delivery environments. I work across business, product, UX, and engineering to translate needs and system complexity into clear requirements, workflows, business rules, and implementation-ready solutions.</p>
+        <div class="chip-group" style="margin-top:24px">
+          <span class="chip">Requirements Engineering</span>
+          <span class="chip">Functional Analysis</span>
+          <span class="chip">B2B SaaS</span>
+          <span class="chip">Product Delivery</span>
+          <span class="chip">Integrations</span>
+          <span class="chip">Process &amp; System Modelling</span>
+          <span class="chip">SQL Analysis</span>
+        </div>
+      </div>
+
+      <aside class="profile-aside fade-up" style="transition-delay:100ms">
+        <div class="aside-section-label">Location & Availability</div>
+        <div class="profile-loc">Zurich, Switzerland</div>
+        <p class="profile-note">EU citizen. Open to onsite and hybrid roles across Canton Zurich, and full-remote international opportunities. Available for Senior Business Analyst and Requirements Engineer roles across SaaS products, enterprise platforms, and complex digital delivery environments.</p>
+        <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--border)">
+          <div class="aside-section-label">Contact</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="mailto:elena.ticca@gmail.com" class="contact-link">
+              <strong>Email</strong>
+              elena.ticca@gmail.com
+            </a>
+            <a href="https://www.linkedin.com/in/elena-ticca-a4a04a219/" target="_blank" rel="noopener noreferrer" class="contact-link">
+              <strong>LinkedIn</strong>
+              linkedin.com/in/elena-ticca-a4a04a219
+            </a>
+            <a href="./Elena_Ticca_CV.pdf" target="_blank" class="contact-link">
+              <strong>CV</strong>
+              Download PDF
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Future Selected Case Studies section will be inserted here -->
+
+  <!-- ABOUT -->
+  <section id="about" class="divider">
+    <div class="wrap">
+      <h2 class="fade-up">About</h2>
+      <p class="section-sub fade-up">Senior Business Analyst with 10 years of experience across B2B SaaS, enterprise applications, and complex digital delivery environments. I work at the intersection of business, product, UX, and engineering, translating business needs and system complexity into clear functional, non-functional, and technical requirements. My focus is on requirements engineering, functional analysis, solution design support, and cross-functional alignment from discovery through delivery.</p>
+      <div class="section-line fade-up"></div>
+      <div class="caps fade-up">
+        <div class="cap-row">
+          <div class="cap-label" style="font-size:0.72rem;color:var(--accent-dim)">Education</div>
+          <div class="cap-val">Bachelor's Degree in Computer Engineering - Roma Tre University</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-label" style="font-size:0.72rem;color:var(--accent-dim)">Course certificate</div>
+          <div class="cap-val">AI Foundations: Technical, Ethical, and Cultural Dimensions - University of Urbino Carlo Bo</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-label" style="font-size:0.72rem;color:var(--accent-dim)">Certifications</div>
+          <div class="cap-val">IREB CPRE Foundation Level (2026) · Scrum Fundamentals (2020)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="divider">
+    <div class="wrap">
+      <h2 class="fade-up">Professional Experience</h2>
+      <p class="section-sub fade-up">Experience across product-led SaaS environments and structured enterprise delivery contexts, with a consistent focus on clarity, workflow logic, and scalable solution delivery.</p>
+      <div class="section-line fade-up"></div>
+      <div class="exp-list fade-up">
+
+        <div class="exp-item">
+          <div class="exp-top">
+            <div class="exp-date">September 2022 – Present</div>
+            <div>
+              <div class="exp-date-inline">September 2022 – Present</div>
+              <div class="exp-role">Senior Business Analyst | Product &amp; Platform Delivery</div>
+              <div class="exp-co">Docebo Inc.</div>
+              <div class="exp-desc">EdTech B2B SaaS | Global (Remote)</div>
+            </div>
+          </div>
+          <div class="exp-summary">
+            <ul>
+              <li>Lead requirements engineering and functional analysis activities while supporting delivery alignment across multiple product streams within a global B2B SaaS learning platform serving millions of users.</li>
+              <li>Translate business needs into clear and structured requirements, covering functional, non-functional and technical requirements, use cases, process and user flows, UML models, business rules, and system behaviours.</li>
+              <li>Collaborate with UX/UI, technical leads, and delivery teams to support solution design, feature validation, impact analysis, and alignment between business needs and technical execution.</li>
+            </ul>
+          </div>
+          <button class="exp-toggle" type="button" aria-expanded="false" aria-controls="exp-detail-docebo">
+            <span class="exp-plus" aria-hidden="true">+</span>
+            <span class="exp-toggle-text">Show more detail</span>
+          </button>
+          <div class="exp-detail" id="exp-detail-docebo">
+            <div class="exp-detail-inner">
+              <ul>
+                <li>Work with Product Management and delivery stakeholders on scope definition, backlog refinement, requirement clarification, feasibility assessment, and release readiness.</li>
+                <li>Inform prioritisation and requirement refinement through SQL data analysis, usage and adoption signals, customer feedback, and behavioural insights.</li>
+                <li>Lead functional analysis for platform and third-party integrations, defining requirements across data exchange, access rules, system interactions, dependencies, and impacts across connected components.</li>
+                <li>Contribute to AI-enabled product initiatives by supporting discovery, requirements definition, expected behaviours, limitations, and cross-functional execution.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-top">
+            <div class="exp-date">October 2018 – September 2022</div>
+            <div>
+              <div class="exp-date-inline">October 2018 – September 2022</div>
+              <div class="exp-role">IT Business Analyst | Solution Delivery</div>
+              <div class="exp-co">Eustema SpA</div>
+              <div class="exp-desc">LegalTech B2B SaaS | Italy (Remote)</div>
+            </div>
+          </div>
+          <div class="exp-summary">
+            <ul>
+              <li>Gathered and analysed business needs within client-facing LegalTech initiatives, translating them into structured IT and functional requirements, workflows, business rules, use cases, and supporting documentation for a highly customisable digital platform.</li>
+              <li>Worked across product and project delivery contexts, supporting the adaptation of platform capabilities to specific client needs, operational processes, regulatory constraints, and implementation requirements.</li>
+              <li>Led workshops and stakeholder interviews involving hundreds of stakeholders across dozens of projects to elicit needs, clarify scope, validate processes, and support shared understanding.</li>
+            </ul>
+          </div>
+          <button class="exp-toggle" type="button" aria-expanded="false" aria-controls="exp-detail-eustema">
+            <span class="exp-plus" aria-hidden="true">+</span>
+            <span class="exp-toggle-text">Show more detail</span>
+          </button>
+          <div class="exp-detail" id="exp-detail-eustema">
+            <div class="exp-detail-inner">
+              <ul>
+                <li>Mapped business processes, application flows, user journeys, and business rules to support solution design, technical feasibility discussions, implementation readiness, and alignment across business and technical stakeholders.</li>
+                <li>Analysed integration and data migration requirements across distributed public-sector systems, defining functional and technical documentation in collaboration with technical teams and coordinating related testing and release preparation activities.</li>
+                <li>Prepared user manuals, operational guides, and training materials, supporting user training activities to improve platform adoption and operational readiness.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-top">
+            <div class="exp-date">January 2017 – September 2018</div>
+            <div>
+              <div class="exp-date-inline">January 2017 – September 2018</div>
+              <div class="exp-role">IT Business Analyst | IT Consultant</div>
+              <div class="exp-co">NS12 SpA</div>
+              <div class="exp-desc">Transportation &amp; Real Estate | Digital Transformation | Italy</div>
+            </div>
+          </div>
+          <div class="exp-summary">
+            <ul>
+              <li>Gathered and analysed business needs within client-facing digital transformation initiatives, translating them into structured IT requirements, workflows, functional documentation, and implementation support materials.</li>
+              <li>Produced functional, technical, and operational documentation to ensure consistency across delivery streams and support communication between business stakeholders and technical teams.</li>
+              <li>Contributed to process modernisation initiatives aimed at replacing manual activities with more standardised digital workflows.</li>
+            </ul>
+          </div>
+          <button class="exp-toggle" type="button" aria-expanded="false" aria-controls="exp-detail-ns12">
+            <span class="exp-plus" aria-hidden="true">+</span>
+            <span class="exp-toggle-text">Show more detail</span>
+          </button>
+          <div class="exp-detail" id="exp-detail-ns12">
+            <div class="exp-detail-inner">
+              <ul>
+                <li>Supported delivery and testing activities through requirement clarification, issue analysis, user validation, and implementation readiness support.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-top">
+            <div class="exp-date">July 2016 – December 2017</div>
+            <div>
+              <div class="exp-date-inline">July 2016 – December 2017</div>
+              <div class="exp-role">Application Support Analyst</div>
+              <div class="exp-co">Infoclodio SRL</div>
+              <div class="exp-desc">ERP &amp; Legal Business Applications | Italy</div>
+            </div>
+          </div>
+          <div class="exp-summary">
+            <ul>
+              <li>Managed issue analysis, functional clarification, configuration activities, and user guidance across business applications.</li>
+              <li>Worked with ERP-related workflows and legal software environments in day-to-day operational contexts.</li>
+              <li>Acted as a link between end users and technical teams to help maintain operational continuity and effective issue resolution.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH & WORKING ARTEFACTS -->
+  <section id="capabilities" class="divider">
+    <div class="wrap">
+      <h2 class="fade-up">Approach &amp; Working Artefacts</h2>
+      <p class="section-sub fade-up">How I turn complex business needs into clear scope, structured requirements, and delivery-ready decisions.</p>
+      <div class="section-line fade-up"></div>
+      <div class="step-grid fade-up">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h4>Understand &amp; Define</h4>
+          <p>Clarifying business needs, user problems, stakeholders, constraints, scope, and success criteria.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h4>Model &amp; Analyse</h4>
+          <p>Mapping workflows, business rules, system interactions, dependencies, alternative paths, and edge cases.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h4>Specify &amp; Align</h4>
+          <p>Translating analysis into functional and non-functional requirements, use cases, acceptance criteria, and delivery-ready documentation.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h4>Validate &amp; Support Delivery</h4>
+          <p>Reviewing feasibility, resolving ambiguities, supporting refinement and testing, and maintaining alignment through release.</p>
+        </div>
+      </div>
+
+      <h3 class="fade-up" style="margin-top:60px;font-size:1.15rem;color:var(--text)">Selected Case Study</h3>
+
+      <div class="case-card fade-up">
+        <span class="case-ref">Case-01</span>
+        <h3>Course and Session Duplication</h3>
+        <div class="case-class">An anonymised B2B SaaS product case</div>
+        <p class="case-body">How I structured a complex course and session duplication capability by defining scope, copied and excluded data, permissions, business rules, expected system behaviour, acceptance criteria, dependencies, and partial-failure scenarios.</p>
+        <div class="tag-row">
+          <span class="tag">Scope &amp; Business Rules</span>
+          <span class="tag">User &amp; System Flows</span>
+          <span class="tag">Requirements</span>
+          <span class="tag">Validation &amp; Edge Cases</span>
+        </div>
+        <a class="btn btn-primary" href="./case-study-course-session-duplication.html">View complete case study →</a>
+        <p class="case-note">Based on professional product work. Company-specific information and implementation details have been removed or generalised.</p>
+      </div>
+
+      <h3 class="fade-up" style="margin-top:60px;font-size:1.15rem;color:var(--text)">Two documentation approaches</h3>
+      <p class="section-sub fade-up" style="margin-top:10px">The same product scenario presented through an applied product-delivery specification and a formal portfolio adaptation.</p>
+
+      <div class="doc-grid fade-up">
+        <article class="doc-card">
+          <div class="doc-eyebrow">Applied product approach</div>
+          <h4>Product Delivery Specification</h4>
+          <p class="doc-desc">A delivery-focused specification based on the professional product case, structured for iterative collaboration across Product, Engineering, UX, and QA.</p>
+          <ul class="doc-key">
+            <li>Scope and feature behaviour</li>
+            <li>User flows and acceptance criteria</li>
+            <li>UX states, dependencies, and delivery considerations</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="./artefacts/course-duplication-product-delivery-example.html">View completed example →</a>
+          </div>
+          <p class="doc-note">An anonymised example based on professional product work.</p>
+        </article>
+
+        <article class="doc-card">
+          <div class="doc-eyebrow">Portfolio adaptation</div>
+          <h4>Formal Requirements Specification</h4>
+          <p class="doc-desc">The same scenario restructured to demonstrate a more formal enterprise and client-facing requirements approach.</p>
+          <ul class="doc-key">
+            <li>Business context, stakeholders, and constraints</li>
+            <li>Requirement identifiers and fit criteria</li>
+            <li>Business rules, traceability, and formal validation</li>
+          </ul>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="./artefacts/course-duplication-formal-requirements-adaptation.html">View completed adaptation →</a>
+          </div>
+          <p class="doc-note">A portfolio adaptation of the same scenario. It demonstrates a formal enterprise documentation approach and does not represent a separate client engagement.</p>
+        </article>
+      </div>
+
+      <h3 class="fade-up" style="margin-top:56px;font-size:1rem;color:var(--muted);font-weight:500">Blank reusable templates</h3>
+      <p class="fade-up" style="margin-top:8px;font-size:0.83rem;color:var(--subtle);line-height:1.7">Downloadable structures that can be adapted to different product and project delivery contexts.</p>
+
+      <div class="blank-grid fade-up">
+        <div class="blank-item">
+          <h5>Product Delivery Specification — Blank Template</h5>
+          <div class="blank-links">
+            <a class="blank-link" href="./artefacts/product-delivery-specification-template.html">View blank template</a>
+            <a class="blank-link" href="./downloads/product-delivery-specification-template.docx" download>Download DOCX</a>
+          </div>
+        </div>
+        <div class="blank-item">
+          <h5>Formal Requirements Specification — Blank Template</h5>
+          <div class="blank-links">
+            <a class="blank-link" href="./artefacts/formal-requirements-specification-template.html">View blank template</a>
+            <a class="blank-link" href="./downloads/formal-requirements-specification-template.docx" download>Download DOCX</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDEPENDENT PROJECTS & DOMAIN RESEARCH -->
+  <section id="independent" class="divider">
+    <div class="wrap">
+      <h2 class="fade-up">Independent Projects &amp; Domain Research</h2>
+      <p class="section-sub fade-up">Selected independent initiatives demonstrating product thinking, structured research, content development, and exploration of adjacent business domains.</p>
+      <div class="section-line fade-up"></div>
+      <div class="proj-grid">
+        <article class="proj-card proj-card--secondary fade-up">
+          <div class="proj-meta">Independent editorial project</div>
+          <h3>That Works Studio</h3>
+          <p>An independent editorial project focused on practical learning resources, starting with English content for Italian speakers and designed to evolve into a broader series of accessible, action-oriented guides.</p>
+          <ul>
+            <li>Brand positioning and editorial structure</li>
+            <li>Modular content and learning framework</li>
+            <li>Development of a scalable structure for future publications and learning formats</li>
+          </ul>
+          <a href="https://www.thatworkstudio.com/" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:14px;font-size:0.78rem;color:var(--accent-dim);border-bottom:1px solid var(--subtle);padding-bottom:2px;transition:color 180ms,border-color 180ms" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent)'" onmouseout="this.style.color='var(--accent-dim)';this.style.borderColor='var(--subtle)'">Visit project →</a>
+        </article>
+        <article class="proj-card proj-card--secondary fade-up" style="transition-delay:60ms">
+          <div class="proj-meta">Independent domain research</div>
+          <h3>Multibanking &amp; Payment Workflow Research</h3>
+          <p>Independent research used to extend existing requirements-engineering and systems-analysis capabilities into treasury, payments, and multibanking environments.</p>
+          <ul>
+            <li>Exploration of payment lifecycles from ERP initiation through bank execution</li>
+            <li>Analysis of approval workflows, payment statuses, reconciliation, and auditability</li>
+            <li>High-level modelling of cross-system interactions, dependencies, and operational visibility</li>
+          </ul>
+          <p class="proj-note">Independent domain study — not presented as professional banking or client experience.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Elena Ticca · Senior Business Analyst · Requirements Engineering · Product Delivery</span>
+  <span>Zurich, Switzerland · <a href="mailto:elena.ticca@gmail.com" style="color:inherit">elena.ticca@gmail.com</a></span>
+</footer>
+
+<script>
+  // Reveal-on-scroll
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -32px 0px'});
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Accessible experience accordion
+  const toggles = document.querySelectorAll('.exp-toggle');
+
+  function setPanel(btn, expand){
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    if(!panel) return;
+    btn.setAttribute('aria-expanded', String(expand));
+    btn.querySelector('.exp-toggle-text').textContent = expand ? 'Show less' : 'Show more detail';
+    panel.style.maxHeight = expand ? panel.scrollHeight + 'px' : null;
+  }
+
+  toggles.forEach(btn => {
+    // Honour the initial aria-expanded state set in the markup
+    if(btn.getAttribute('aria-expanded') === 'true'){ setPanel(btn, true); }
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      setPanel(btn, !isOpen);
+    });
+  });
+
+  // Keep open panels correctly sized when the viewport changes
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      toggles.forEach(btn => {
+        if(btn.getAttribute('aria-expanded') === 'true'){
+          const panel = document.getElementById(btn.getAttribute('aria-controls'));
+          if(panel){ panel.style.maxHeight = panel.scrollHeight + 'px'; }
+        }
+      });
+    }, 150);
+  });
+
+  // Smooth scroll for in-page navigation
+  document.querySelectorAll('.nav-links a, .logo').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if(id && id.startsWith('#')){
+        const target = document.querySelector(id);
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth'});
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>

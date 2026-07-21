@@ -1,0 +1,58 @@
+PORTFOLIO — FILE DA CARICARE SU GITHUB
+=======================================
+
+STRUTTURA DA MANTENERE
+----------------------
+portfolio/
+├── index.html                                    (SOSTITUISCI quello esistente)
+├── case-study-course-session-duplication.html    (NUOVO)
+├── Elena_Ticca_CV_SBA-RE.pdf                     (già presente, non toccare)
+├── artefacts/                                    (CARTELLA NUOVA)
+│   ├── course-duplication-product-delivery-example.html
+│   ├── course-duplication-formal-requirements-adaptation.html
+│   ├── product-delivery-specification-template.html
+│   └── formal-requirements-specification-template.html
+└── downloads/                                    (CARTELLA NUOVA)
+    ├── product-delivery-specification-template.docx
+    └── formal-requirements-specification-template.docx
+
+
+COME CARICARE
+-------------
+1. Estrai questo ZIP sul tuo computer.
+2. Su GitHub apri il repository "portfolio".
+3. Clicca "Add file" > "Upload files".
+4. Trascina nella pagina le due CARTELLE (artefacts, downloads)
+   e i due FILE HTML (index.html, case-study-...html).
+   GitHub mantiene automaticamente la struttura delle cartelle.
+5. Scrivi un messaggio di commit e conferma.
+
+
+DA ELIMINARE DAL REPO (dopo aver verificato che il sito funziona)
+------------------------------------------------------------------
+- T1_prod-oriented-saas-delivery-spec.html
+- T1_prod-oriented-saas-delivery-spec.docx
+- T2_project-oriented-enterprise-consult-spec.html
+- T2_project-oriented-enterprise-consult-spec.docx
+
+Questi file non sono più collegati dal sito: i template vuoti
+ora stanno in artefacts/ (anteprime) e downloads/ (file DOCX).
+
+
+VERIFICA DOPO IL CARICAMENTO
+-----------------------------
+Apri il sito e controlla che funzionino:
+- il pulsante "View complete case study"
+- i due pulsanti "View completed example" / "View completed adaptation"
+- i due "View blank template"
+- i due "Download DOCX"
+
+Se qualcosa dà 404, fai un refresh forzato (Cmd+Shift+R oppure Ctrl+Shift+R):
+GitHub Pages impiega uno o due minuti a pubblicare.
+
+
+NOTA
+----
+Tutte le pagine HTML sono autonome: il CSS è incorporato dentro
+ogni file. Non serve nessun foglio di stile esterno.
+Puoi aprirle in locale con doppio clic per vederle prima di pubblicare.
