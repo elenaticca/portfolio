@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Product Delivery Specification — Completed Example | Elena Ticca</title>
+<meta name="description" content="An anonymised completed product delivery specification for a course and session duplication capability."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=DM+Serif+Display@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f7f5f2;
+  --surface:#ffffff;
+  --surface2:#f0ece6;
+  --text:#1c2333;
+  --muted:#4a5568;
+  --subtle:#616a7d;
+  --accent:#2d4270;
+  --accent-dim:#4a628f;
+  --border:rgba(28,35,51,0.10);
+  --border2:rgba(28,35,51,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+  line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+
+/* Header + breadcrumb */
+.top-nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,245,242,0.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.back-link{
+  font-size:0.84rem;color:var(--accent-dim);display:inline-flex;align-items:center;gap:7px;
+  transition:color 180ms;
+}
+.back-link:hover{color:var(--accent)}
+.back-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.breadcrumb{font-size:0.78rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.breadcrumb a{color:var(--accent-dim);transition:color 180ms}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.breadcrumb span[aria-current]{color:var(--muted)}
+
+.wrap{max-width:900px;margin:0 auto;padding:56px 48px 80px}
+
+/* Page head */
+.doc-ref{
+  display:inline-block;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent-dim);border:1px solid var(--border2);border-radius:3px;
+  padding:4px 10px;margin-bottom:16px;
+}
+h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.9rem,3.4vw,2.7rem);
+  line-height:1.08;font-weight:400;
+  letter-spacing:-0.01em;margin-bottom:12px;color:var(--text);
+}
+.doc-class{font-size:0.93rem;color:var(--muted);line-height:1.85;margin-bottom:8px}
+.section-line{width:56px;height:1px;background:linear-gradient(90deg,var(--accent-dim),transparent);margin:20px 0 32px}
+
+/* Transparency notice - high contrast, clearly visible */
+.notice{
+  background:#eef2fa;border:1px solid var(--border2);
+  border-left:3px solid var(--accent);border-radius:5px;
+  padding:18px 22px;margin:26px 0 40px;
+  font-size:0.87rem;color:var(--text);line-height:1.75;
+}
+.notice strong{color:var(--text);font-weight:600}
+
+/* Sections */
+section{margin-bottom:44px}
+h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(1.35rem,2.2vw,1.75rem);
+  font-weight:400;letter-spacing:-0.01em;
+  color:var(--text);margin-bottom:6px;line-height:1.15;
+  padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.sec-num{font-family:'DM Sans',sans-serif;font-size:0.72rem;color:var(--accent-dim);letter-spacing:0.1em;margin-right:10px}
+h3{font-size:0.97rem;font-weight:600;color:var(--text);margin:26px 0 10px;font-family:'DM Sans',sans-serif}
+p{color:var(--muted);margin-bottom:14px;font-size:0.9rem}
+ul,ol{margin:0 0 16px 0;padding-left:0;list-style:none}
+li{color:var(--muted);font-size:0.88rem;padding:4px 0 4px 16px;position:relative;line-height:1.7}
+li::before{content:'·';position:absolute;left:0;color:var(--accent-dim);font-size:1.1rem;line-height:1.5}
+ol{counter-reset:n}
+ol li{padding-left:26px}
+ol li::before{content:counter(n);counter-increment:n;font-size:0.76rem;color:var(--accent-dim);font-feature-settings:'tnum';top:5px}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:0.85rem}
+th{
+  text-align:left;font-weight:500;font-size:0.7rem;letter-spacing:0.07em;text-transform:uppercase;
+  color:var(--accent-dim);padding:11px 14px;border-bottom:1px solid var(--border2);
+  background:var(--surface2);
+}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.id-cell{color:var(--accent-dim);font-size:0.8rem;white-space:nowrap;font-feature-settings:'tnum'}
+
+/* Requirement blocks */
+.req{background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:16px;overflow:hidden}
+.req-head{
+  background:var(--surface2);padding:13px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.req-id{font-size:0.72rem;color:var(--accent-dim);letter-spacing:0.06em;font-feature-settings:'tnum'}
+.req-title{font-size:0.94rem;color:var(--text);font-weight:600}
+.req-body{padding:6px 20px 16px}
+.req-row{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
+.req-row:last-child{border-bottom:none}
+.req-label{font-size:0.7rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent-dim);padding-top:2px}
+.req-val{font-size:0.87rem;color:var(--muted);line-height:1.7}
+
+/* Callouts */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px}
+.box h4{font-size:0.88rem;color:var(--text);margin-bottom:10px;font-weight:600}
+.box.excl{border-color:var(--border2)}
+
+/* Flow steps */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.flow-step{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:18px}
+.flow-num{font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:8px}
+.flow-step h4{font-size:0.9rem;color:var(--text);margin-bottom:6px;font-weight:600}
+.flow-step p{font-size:0.8rem;margin:0}
+
+/* Placeholder styling for blank templates */
+.ph{color:var(--accent-dim);font-style:italic}
+.guide{color:var(--muted);opacity:0.85;font-size:0.83rem;font-style:italic}
+.tmpl-badge{
+  display:inline-block;background:var(--surface2);border:1px solid var(--border2);
+  border-radius:3px;padding:4px 11px;font-size:0.72rem;color:var(--muted);
+  letter-spacing:0.05em;margin-bottom:16px;
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;font-size:0.83rem;
+  border-radius:4px;padding:11px 20px;transition:background 180ms,border-color 180ms,color 180ms;
+}
+.btn-primary{background:var(--accent);color:#ffffff;border:1px solid var(--accent);font-weight:500}
+.btn-primary:hover{background:var(--accent-dim);border-color:var(--accent-dim);color:#ffffff}
+.btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-secondary:hover{color:var(--text);border-color:var(--accent-dim)}
+.btn-secondary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+
+/* Related artefacts nav */
+.related{border-top:1px solid var(--border);margin-top:52px;padding-top:32px}
+.related h3{font-size:0.98rem;margin:0 0 16px}
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rel-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:18px 20px;
+  transition:border-color 180ms,background 180ms;display:block;
+}
+.rel-card:hover{border-color:var(--border2);background:var(--surface2)}
+.rel-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rel-eyebrow{font-size:0.66rem;letter-spacing:0.09em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:7px}
+.rel-card h4{font-size:0.88rem;color:var(--text);font-weight:600;margin-bottom:4px}
+.rel-card p{font-size:0.79rem;color:var(--muted);margin:0}
+
+footer{
+  border-top:1px solid var(--border);padding:24px 40px;
+  font-size:0.79rem;color:var(--muted);text-align:center;
+}
+
+@media(max-width:820px){
+  .top-nav{padding:14px 22px}
+  .wrap{padding:40px 22px 60px}
+  h1{font-size:1.6rem}
+  .split,.rel-grid,.flow{grid-template-columns:1fr}
+  .req-row{grid-template-columns:1fr;gap:4px}
+  table{font-size:0.8rem}
+  th,td{padding:9px 10px}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../index.html">← Back to portfolio</a>
+  <div class="breadcrumb">
+    <a href="../index.html">Portfolio</a>
+    <span>/</span>
+    <a href="../case-study-course-session-duplication.html">Case-01</a>
+    <span>/</span>
+    <span aria-current="page">Product Delivery Specification</span>
+  </div>
+</nav>
+
+<main class="wrap">
+  <span class="doc-ref">Case-01 · Completed example</span>
+  <h1>Product Requirements — Delivery Specification</h1>
+  <p class="doc-class">Course and Session Duplication · Applied product approach</p>
+  <div class="section-line"></div>
+
+  <div class="notice">
+    <strong>An anonymised example based on professional product work.</strong> Company names, internal identifiers, endpoints, service names, telemetry, and implementation details have been removed or generalised. Requirement codes have been renumbered neutrally.
+  </div>
+
+  <section>
+    <h2><span class="sec-num">01</span>Overview</h2>
+    <h3>Goal</h3>
+    <p>Allow platform administrators to duplicate a scheduled training course, optionally including its associated sessions — all of them or a selected subset — removing the need to reconfigure recurring programmes by hand.</p>
+    <h3>Problem statement</h3>
+    <p>When an administrator needs a new course similar to an existing one, they must recreate all settings and sessions from scratch. No duplication capability exists for this course type, unlike other course types already supported by the platform. The result is operational inefficiency, error risk, and wasted configuration time.</p>
+    <h3>Business value</h3>
+    <ul>
+      <li>Reduced course setup time for administrators</li>
+      <li>Fewer manual configuration errors on recurring programmes</li>
+      <li>Greater consistency across programme editions</li>
+      <li>Improved overall administrative efficiency</li>
+    </ul>
+    <p class="guide">Stated as expected value at specification time. No measured post-release results are presented.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">02</span>Scope</h2>
+    <div class="split">
+      <div class="box">
+        <h4>In scope</h4>
+        <ul>
+          <li>Duplicate course metadata and settings</li>
+          <li>Duplicate all associated sessions</li>
+          <li>Duplicate a user-selected subset of sessions</li>
+          <li>Multi-step selection flow: type → sessions → review</li>
+          <li>Data validation before confirmation</li>
+          <li>Review step summarising what will be duplicated</li>
+        </ul>
+      </div>
+      <div class="box excl">
+        <h4>Out of scope</h4>
+        <ul>
+          <li>Learner enrolment duplication</li>
+          <li>Attendance record duplication</li>
+          <li>Historical completion data duplication</li>
+          <li>Session structure redesign</li>
+          <li>Duplication of other course types</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">03</span>Personas and actors</h2>
+    <table>
+      <thead><tr><th>Actor</th><th>Description</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr><td>Administrator</td><td>Manages courses; initiates the duplication flow, selects sessions to copy, and confirms creation</td><td>Direct</td></tr>
+        <tr><td>Instructor</td><td>May be associated with duplicated sessions; indirectly affected by the resulting session structure</td><td>Indirect</td></tr>
+        <tr><td>Learner</td><td>No direct interaction; learner data is never duplicated</td><td>None</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">04</span>Assumptions and constraints</h2>
+    <h3>Assumptions</h3>
+    <ul>
+      <li>The existing permission model remains unchanged</li>
+      <li>Session structure — dates, location, instructor — is already defined on the source course</li>
+      <li>The capability applies exclusively to the applicable course type</li>
+      <li>The duplicated course is fully independent from the original once created</li>
+    </ul>
+    <h3>Constraints</h3>
+    <table>
+      <thead><tr><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Business</td><td>Source course must remain unchanged. Enrolments and historical learner data must not be copied under any circumstances.</td></tr>
+        <tr><td>Technical</td><td>Existing interfaces must be reused where possible. The existing permission model must be respected without architectural changes.</td></tr>
+        <tr><td>UX</td><td>Users must clearly understand what will be duplicated before confirming. A review step is mandatory.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">05</span>User flow</h2>
+    <p>The duplication flow is a three-step modal stepper.</p>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">Step 01</div>
+        <h4>Select type</h4>
+        <p>Course only · All sessions · Selected sessions</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Step 02</div>
+        <h4>Select sessions</h4>
+        <p>Active only when "selected sessions" is chosen</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Step 03</div>
+        <h4>Review and confirm</h4>
+        <p>Summary of what will be duplicated; confirm or go back</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">06</span>Functional requirements</h2>
+
+    <div class="req">
+      <div class="req-head"><span class="req-id">FR-01</span><span class="req-title">Initiate duplication flow</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Description</div><div class="req-val">The administrator can initiate the duplication flow directly from a course page.</div></div>
+        <div class="req-row"><div class="req-label">UI behaviour</div><div class="req-val">A "Duplicate" action is available in the course actions menu, visible only for the applicable course type. Selecting it opens the modal stepper.</div></div>
+        <div class="req-row"><div class="req-label">Validation</div><div class="req-val">User must hold the relevant management permission. Course must exist and not be in a deleted state.</div></div>
+        <div class="req-row"><div class="req-label">Edge cases</div><div class="req-val">Course deleted during the flow → show error and close the stepper. User loses permission mid-flow → block with an access denied message.</div></div>
+        <div class="req-row"><div class="req-label">Acceptance</div><div class="req-val"><em>Given</em> an administrator with management permissions is viewing a course · <em>When</em> they select "Duplicate" from the actions menu · <em>Then</em> the system opens the duplication stepper</div></div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="req-head"><span class="req-id">FR-02</span><span class="req-title">Select duplication type</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Description</div><div class="req-val">In step 1, the administrator selects among three options: course only · course with all sessions · course with selected sessions.</div></div>
+        <div class="req-row"><div class="req-label">UI behaviour</div><div class="req-val">Radio button group with three options. Selection state is reflected in the stepper header. "Next" is enabled only when one option is selected.</div></div>
+        <div class="req-row"><div class="req-label">Validation</div><div class="req-val">Exactly one option must be selected to proceed.</div></div>
+        <div class="req-row"><div class="req-label">Edge cases</div><div class="req-val">User navigates back and changes selection → prior state must be maintained or coherently reset.</div></div>
+        <div class="req-row"><div class="req-label">Acceptance</div><div class="req-val"><em>Given</em> the administrator is in step 1 · <em>When</em> they select "course with selected sessions" · <em>Then</em> the system enables step 2 with the session selection list</div></div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="req-head"><span class="req-id">FR-03</span><span class="req-title">Select individual sessions</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Description</div><div class="req-val">When the subset mode is active, step 2 displays all sessions of the source course with individual checkboxes.</div></div>
+        <div class="req-row"><div class="req-label">UI behaviour</div><div class="req-val">Checkbox list showing name, date, location, and instructor per session, with a select all / deselect all control. "Next" is enabled only when at least one session is selected.</div></div>
+        <div class="req-row"><div class="req-label">Validation</div><div class="req-val">At least one session must be selected. Unavailable sessions are shown as disabled.</div></div>
+        <div class="req-row"><div class="req-label">Edge cases</div><div class="req-val">No sessions available → empty state with an explanatory message. Session becomes unavailable during selection → exclude it and notify inline.</div></div>
+        <div class="req-row"><div class="req-label">Acceptance</div><div class="req-val"><em>Given</em> the administrator is in step 2 and the course has available sessions · <em>When</em> they select a subset · <em>Then</em> only the selected sessions are included</div></div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="req-head"><span class="req-id">FR-04</span><span class="req-title">Review and confirm</span></div>
+      <div class="req-body">
+        <div class="req-row"><div class="req-label">Description</div><div class="req-val">Before creation, the administrator sees a summary of what will be duplicated and can confirm or go back.</div></div>
+        <div class="req-row"><div class="req-label">UI behaviour</div><div class="req-val">Review screen showing the new course name, the list of included sessions, and confirm and back controls.</div></div>
+        <div class="req-row"><div class="req-label">Validation</div><div class="req-val">The system runs a final validation pass before executing creation. Errors are shown inline.</div></div>
+        <div class="req-row"><div class="req-label">Edge cases</div><div class="req-val">Validation failure → show specific errors and block confirmation. Session timeout → warn the user; no partial data is persisted.</div></div>
+        <div class="req-row"><div class="req-label">Acceptance</div><div class="req-val"><em>Given</em> the administrator has completed selection and is in the review step · <em>When</em> they confirm · <em>Then</em> the system creates the duplicated course with the selected sessions and shows a success notification linking to it</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">07</span>Business rules</h2>
+    <table>
+      <thead><tr><th>ID</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">BR-01</td><td>Learner registrations are never duplicated</td></tr>
+        <tr><td class="id-cell">BR-02</td><td>Source course data remains unchanged after duplication</td></tr>
+        <tr><td class="id-cell">BR-03</td><td>Only users with the relevant management permission may initiate duplication</td></tr>
+        <tr><td class="id-cell">BR-04</td><td>The capability applies exclusively to the applicable course type</td></tr>
+        <tr><td class="id-cell">BR-05</td><td>On partial failure, the course is still created and failures are surfaced</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">08</span>UX states</h2>
+    <table>
+      <thead><tr><th>State</th><th>Behaviour</th></tr></thead>
+      <tbody>
+        <tr><td>Loading</td><td>Progress indicator with a label describing the operation in progress</td></tr>
+        <tr><td>Error</td><td>Error banner explaining that duplication could not be completed, with detail where available</td></tr>
+        <tr><td>Partial warning</td><td>Warning banner confirming the course was created while listing sessions that were not copied</td></tr>
+        <tr><td>Empty state</td><td>Message explaining that the course has no sessions available for duplication</td></tr>
+        <tr><td>Success</td><td>Confirmation notification with a link to the newly created course</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">09</span>Error handling</h2>
+    <table>
+      <thead><tr><th>Scenario</th><th>Expected behaviour</th></tr></thead>
+      <tbody>
+        <tr><td>Permission denied</td><td>Block the action and explain that the user lacks permission to duplicate the course</td></tr>
+        <tr><td>Partial duplication</td><td>Course is still created; a warning lists the sessions that were not duplicated</td></tr>
+        <tr><td>Session unavailable during selection</td><td>Session is excluded from the list; inline notification shown</td></tr>
+        <tr><td>Source course deleted during flow</td><td>Hard error: close the modal and show an error on the page; no data created</td></tr>
+        <tr><td>Timeout or generic error</td><td>Generic error message shown; no partial data is persisted</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">10</span>QA considerations</h2>
+    <ul>
+      <li>Permissions: with permission, without permission, and permission revoked mid-flow</li>
+      <li>Duplication type: course only, all sessions, selected sessions</li>
+      <li>Session selection: partial, full, and none attempted</li>
+      <li>Validation: valid data, invalid data, unavailable sessions</li>
+      <li>Partial failures: one or more sessions failing during duplication</li>
+      <li>Concurrency: source course deleted while the flow is open</li>
+      <li>UI states: loading, error, success, empty, partial warning</li>
+      <li>Data integrity: source course must not be modified at any point</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">11</span>Open questions</h2>
+    <table>
+      <thead><tr><th>Question</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Should archived sessions be selectable in the duplication flow?</td><td>Open</td></tr>
+        <tr><td>Should the duplicated course name be editable in the review step?</td><td>Open</td></tr>
+        <tr><td>On partial failure, should the created course be in draft or published state?</td><td>Open</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">12</span>Dependencies</h2>
+    <p>The capability depends on the platform's session management, authorisation, and course management components. Specific service names and interfaces have been omitted from this published version.</p>
+  </section>
+
+  <div class="related">
+    <h3>Related artefacts</h3>
+    <div class="rel-grid">
+      <a class="rel-card" href="../case-study-course-session-duplication.html">
+        <div class="rel-eyebrow">Case study</div>
+        <h4>Course and Session Duplication</h4>
+        <p>The full case narrative</p>
+      </a>
+      <a class="rel-card" href="course-duplication-formal-requirements-adaptation.html">
+        <div class="rel-eyebrow">Portfolio adaptation</div>
+        <h4>Formal Requirements Specification</h4>
+        <p>The same scenario, formally structured</p>
+      </a>
+      <a class="rel-card" href="product-delivery-specification-template.html">
+        <div class="rel-eyebrow">Blank reusable template</div>
+        <h4>Product Delivery Specification</h4>
+        <p>Empty structure — different from this example</p>
+      </a>
+      <a class="rel-card" href="formal-requirements-specification-template.html">
+        <div class="rel-eyebrow">Blank reusable template</div>
+        <h4>Formal Requirements Specification</h4>
+        <p>Empty structure — different from this example</p>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>Elena Ticca · Senior Business Analyst · Requirements Engineering · Product Delivery</footer>
+
+</body>
+</html>
