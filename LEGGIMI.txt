@@ -1,0 +1,20 @@
+PORTFOLIO — FILE DA CARICARE SU GITHUB
+=======================================
+
+STRUTTURA
+---------
+portfolio/
+├── index.html
+├── case-study-course-session-duplication.html
+├── Elena_Ticca_CV_Business_Analysis_Requirements_Engineering.pdf   (da caricare nella root)
+├── artefacts/   (4 file HTML)
+└── downloads/   (2 file DOCX)
+
+COME CARICARE
+-------------
+Add file > Upload files. Caricare index.html, case-study-course-session-duplication.html, il nuovo PDF del CV e le cartelle artefacts e downloads.
+
+DA ELIMINARE (dopo verifica)
+----------------------------
+- vecchi T1_*.html/.docx e T2_*.html/.docx (se ancora presenti)
+- vecchio Elena_Ticca_CV.pdf o Elena_Ticca_CV_SBA-RE.pdf
